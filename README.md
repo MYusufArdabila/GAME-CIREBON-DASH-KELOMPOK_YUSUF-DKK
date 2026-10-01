@@ -3,10 +3,10 @@
 ## Identitas Kelompok
 - Kelompok: XX
 - Anggota:
-  1. [Nama Anggota 1]
-  2. [Nama Anggota 2]
-  3. [Nama Anggota 3]
-  4. [Nama Anggota 4]
+  1. Muhamad Yusuf Ardabila
+  2. Muhammad Hafizh
+  3. Muhamad Farid Akbar Maulana
+  4. Ananda Farah Nihaya
 
 ## Deskripsi Project
 Cirebon Dash adalah game endless runner berbasis web dengan tema lokal Cirebon. Game menggunakan Canvas 2D dengan visual procedural, SVG, CSS, dan JavaScript.
