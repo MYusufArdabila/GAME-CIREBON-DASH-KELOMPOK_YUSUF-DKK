@@ -1,0 +1,877 @@
+/* ==========================================================================
+   CIREBON DASH — STYLESHEET GAMEPLAY (css/game.css)
+   Mata Kuliah: Desain Web (Semester 5)
+   Deskripsi: Styling khusus untuk area canvas gameplay, in-game HUD, kontrol
+   sentuh mobile virtual, modal Pause, dan modal Game Over.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. LAYAR GAMEPLAY & CANVAS
+   -------------------------------------------------------------------------- */
+#screen-gameplay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  background-color: var(--c-navy-deep);
+}
+
+.gameplay-canvas-wrapper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+#game-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  touch-action: none;
+}
+
+/* --------------------------------------------------------------------------
+/* ==========================================================================
+   CIREBON DASH — STYLESHEET GAMEPLAY (css/game.css)
+   Mata Kuliah: Desain Web (Semester 5)
+   Deskripsi: Styling khusus untuk area canvas gameplay, in-game HUD,
+              countdown overlay (3-2-1-GO), modal Pause, dan modal Game Over.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. LAYAR GAMEPLAY & CANVAS (FULLSCREEN VIEWPORT)
+   -------------------------------------------------------------------------- */
+#screen-gameplay {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  width: 100dvw;
+  height: 100dvh;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  background-color: var(--c-navy-deep);
+}
+
+.gameplay-canvas-wrapper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+#game-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  touch-action: none;
+}
+
+/* --------------------------------------------------------------------------
+   2. IN-GAME HUD (DESKTOP & MOBILE RESPONSIVE)
+   -------------------------------------------------------------------------- */
+.gameplay-hud {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: max(10px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) 10px max(16px, env(safe-area-inset-left));
+  z-index: 30;
+  pointer-events: none; /* Klik tembus ke canvas kecuali tombol interaktif */
+  gap: 10px;
+}
+
+.gameplay-powerups {
+  position: absolute;
+  top: max(62px, calc(env(safe-area-inset-top) + 58px));
+  left: 50%;
+  z-index: 31;
+  display: flex;
+  gap: 8px;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.powerup-indicator {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  min-height: 30px;
+  padding: 4px 9px;
+  border: 1px solid currentColor;
+  border-radius: 15px;
+  background: rgba(11, 19, 37, 0.94);
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.36);
+  color: #7DD3FC;
+  font-family: var(--font-game);
+  font-size: 0.68rem;
+  white-space: nowrap;
+}
+
+.powerup-indicator.active {
+  display: flex;
+}
+
+.powerup-indicator.boots {
+  color: #FDBA74;
+}
+
+.powerup-indicator svg {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.powerup-indicator b {
+  color: #FFF8E7;
+}
+
+.ghud-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: auto;
+}
+
+.ghud-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(11, 19, 37, 0.9);
+  border: 2px solid var(--c-yellow-gold);
+  border-radius: 20px;
+  padding: 5px 14px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
+  transition: transform var(--trans-fast);
+}
+
+.ghud-icon {
+  font-size: 1.15rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ghud-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.ghud-label {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--c-yellow-light);
+  text-transform: uppercase;
+}
+
+.ghud-value {
+  font-family: var(--font-game);
+  font-size: 1.15rem;
+  letter-spacing: 0.05em;
+  color: var(--c-cream-bg);
+}
+
+/* Khusus Angka Jarak & Skor */
+.ghud-distance .ghud-value {
+  color: #FFE066;
+}
+
+.ghud-highscore-pill {
+  border-color: #FFB703;
+  background: rgba(18, 28, 48, 0.94);
+}
+
+.ghud-highscore-pill .ghud-value {
+  color: #FFB703;
+}
+
+/* Skill Badge di HUD */
+.ghud-skill-badge {
+  border-color: #38BDF8;
+  background: rgba(14, 40, 70, 0.9);
+}
+
+.ghud-skill-badge .ghud-label {
+  color: #7DD3FC;
+}
+
+.ghud-skill-badge .ghud-value {
+  color: #38BDF8;
+  font-size: 0.95rem;
+}
+
+/* Police Pursuit Distance Meter di Tengah HUD */
+.ghud-center-police {
+  flex: 0 1 auto;
+}
+
+.ghud-police-bar {
+  padding: 6px 14px;
+  gap: 10px;
+  background: rgba(15, 23, 42, 0.94);
+  border: 2px solid #64748B;
+  min-width: 160px;
+}
+
+.police-icon {
+  animation: policeSirenStrobe 1s ease-in-out infinite alternate;
+}
+
+@keyframes policeSirenStrobe {
+  0% { transform: scale(1) rotate(-4deg); filter: drop-shadow(0 0 6px #38BDF8); }
+  100% { transform: scale(1.1) rotate(4deg); filter: drop-shadow(0 0 6px #EF4444); }
+}
+
+.police-meter-box {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+}
+
+.police-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.police-status-tag {
+  font-family: var(--font-game);
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: rgba(16, 185, 129, 0.2);
+  color: #10B981;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.hud-police-track {
+  width: 100%;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hud-police-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+.hud-police-fill.safe {
+  background: linear-gradient(90deg, #10B981 0%, #34D399 100%);
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+}
+
+.hud-police-fill.warning {
+  background: linear-gradient(90deg, #F59E0B 0%, #FBBF24 100%);
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.6);
+}
+
+.hud-police-fill.very-close {
+  background: linear-gradient(90deg, #EA580C 0%, #F97316 100%);
+  box-shadow: 0 0 10px rgba(234, 88, 12, 0.8);
+}
+
+.hud-police-fill.danger {
+  background: linear-gradient(90deg, #DC2626 0%, #EF4444 100%);
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.9);
+  animation: pulseDanger 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes pulseDanger {
+  0% { opacity: 0.8; }
+  100% { opacity: 1; filter: brightness(1.3); }
+}
+
+@media (max-width: 640px) {
+  .gameplay-powerups {
+    top: max(58px, calc(env(safe-area-inset-top) + 54px));
+    gap: 5px;
+  }
+
+  .powerup-indicator {
+    gap: 4px;
+    min-height: 27px;
+    padding: 3px 7px;
+    font-size: 0.59rem;
+  }
+
+  .powerup-indicator svg {
+    width: 15px;
+    height: 15px;
+  }
+}
+
+/* Tombol Jeda (Pause) di HUD — Touch target min 44x44px */
+.btn-hud-pause {
+  pointer-events: auto;
+  width: 44px;
+  height: 44px;
+  min-height: 44px;
+  min-width: 44px;
+  background: linear-gradient(180deg, var(--c-navy-surface) 0%, var(--c-navy-deep) 100%);
+  border: 2px solid var(--c-yellow-gold);
+  border-radius: 50%;
+  color: var(--c-cream-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  transition: transform var(--trans-fast), background-color var(--trans-fast);
+  flex-shrink: 0;
+}
+
+.btn-hud-pause:hover {
+  transform: scale(1.08);
+  background: var(--c-navy-soft);
+}
+
+.btn-hud-pause:active {
+  transform: scale(0.95);
+}
+
+.pause-bars-icon {
+  stroke: var(--c-yellow-gold);
+}
+
+/* --------------------------------------------------------------------------
+   3. FULLSCREEN COUNTDOWN OVERLAY (3 -> 2 -> 1 -> GO!)
+   -------------------------------------------------------------------------- */
+.game-countdown-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  width: 100dvw;
+  height: 100dvh;
+  background: rgba(7, 13, 24, 0.72);
+  backdrop-filter: blur(8px);
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+}
+
+.countdown-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.countdown-number {
+  font-family: var(--font-game);
+  font-size: clamp(5.5rem, 20vw, 9.5rem);
+  color: var(--c-yellow-gold);
+  text-shadow: 
+    0 6px 0 var(--c-brick-dark),
+    0 10px 25px rgba(255, 107, 0, 0.7),
+    0 0 45px rgba(255, 183, 3, 0.85);
+  line-height: 1;
+}
+
+.countdown-number.count-anim {
+  animation: countdownPulse 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.countdown-number.go-anim,
+.countdown-number.go-state {
+  color: #10B981;
+  text-shadow: 
+    0 6px 0 #065F46,
+    0 10px 25px rgba(16, 185, 129, 0.8),
+    0 0 50px rgba(52, 211, 153, 0.9);
+  animation: countdownGoPulse 0.65s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.countdown-label {
+  font-family: var(--font-game);
+  font-size: clamp(1.2rem, 4vw, 2.2rem);
+  letter-spacing: 0.12em;
+  color: var(--c-cream-bg);
+  margin-top: 10px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+@keyframes countdownPulse {
+  0% { transform: scale(0.3); opacity: 0; }
+  50% { transform: scale(1.18); opacity: 1; }
+  80% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0.92); opacity: 0.85; }
+}
+
+@keyframes countdownGoPulse {
+  0% { transform: scale(0.3); opacity: 0; }
+  50% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(1.1); opacity: 1; }
+}
+
+/* --------------------------------------------------------------------------
+   4. MODAL OVERLAY (PAUSE & GAME OVER)
+   -------------------------------------------------------------------------- */
+.game-overlay-modal {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  width: 100dvw;
+  height: 100dvh;
+  background: rgba(7, 13, 24, 0.82);
+  backdrop-filter: blur(8px);
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: scale(0.95);
+  transition: opacity var(--trans-normal), transform var(--trans-normal), visibility var(--trans-normal);
+  padding: 16px;
+}
+
+.game-overlay-modal.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: scale(1);
+}
+
+.overlay-card {
+  width: 92%;
+  max-width: 440px;
+  background: var(--c-navy-surface);
+  border: 3px solid var(--c-yellow-gold);
+  border-radius: 20px;
+  padding: 24px 20px;
+  text-align: center;
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.85),
+    inset 0 2px 0 rgba(255, 255, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: 92vh;
+  overflow-y: auto;
+}
+
+.overlay-title {
+  font-family: var(--font-game);
+  font-size: 2.1rem;
+  color: var(--c-yellow-gold);
+  letter-spacing: 0.05em;
+  text-shadow: 0 3px 0 var(--c-brick-dark);
+  margin-top: 4px;
+}
+
+.overlay-subtitle {
+  font-size: 0.82rem;
+  color: var(--c-cream-muted);
+  margin-top: 2px;
+  margin-bottom: 16px;
+}
+
+/* Tombol-tombol di dalam modal overlay */
+.overlay-btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 280px;
+  margin-top: 8px;
+}
+
+.btn-overlay-primary {
+  min-height: 48px;
+  font-size: 1.25rem;
+  color: var(--c-cream-bg);
+  background: linear-gradient(180deg, var(--c-orange-bright) 0%, var(--c-orange-primary) 100%);
+  border: 2px solid var(--c-yellow-gold);
+  border-radius: 28px;
+  box-shadow: 0 6px 0 var(--c-brick-dark), 0 8px 15px rgba(0, 0, 0, 0.4);
+}
+
+.btn-overlay-primary:hover {
+  background: linear-gradient(180deg, #FFA033 0%, var(--c-orange-bright) 100%);
+  transform: translateY(-2px);
+}
+
+.btn-overlay-primary:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 var(--c-brick-dark);
+}
+
+.btn-overlay-secondary {
+  min-height: 44px;
+  font-size: 1.05rem;
+  color: var(--c-cream-bg);
+  background: linear-gradient(180deg, var(--c-navy-soft) 0%, var(--c-navy-surface) 100%);
+  border: 2px solid var(--c-yellow-gold);
+  border-radius: 24px;
+  box-shadow: 0 4px 0 #050A14, 0 6px 12px rgba(0, 0, 0, 0.35);
+}
+
+.btn-overlay-secondary:hover {
+  background: var(--c-navy-soft);
+  transform: translateY(-2px);
+}
+
+.btn-overlay-secondary:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #050A14;
+}
+
+.btn-overlay-tertiary {
+  min-height: 42px;
+  font-size: 0.95rem;
+  color: var(--c-cream-muted);
+  background: transparent;
+  border: 1.5px solid rgba(255, 183, 3, 0.4);
+  border-radius: 20px;
+}
+
+.btn-overlay-tertiary:hover {
+  color: var(--c-cream-bg);
+  border-color: var(--c-yellow-gold);
+  background: rgba(255, 183, 3, 0.1);
+}
+
+/* Pause Menu Audio Controls */
+.pause-audio-section {
+  width: 100%;
+  max-width: 290px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1.5px solid rgba(255, 183, 3, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pause-audio-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--c-yellow-light);
+  text-transform: uppercase;
+  text-align: left;
+}
+
+.pause-audio-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.pause-audio-label {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--c-cream-bg);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pause-audio-row.volume-row {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.pause-audio-row.volume-row .pause-audio-label {
+  font-size: 0.74rem;
+  color: var(--c-cream-muted);
+}
+
+.game-range-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(11, 19, 37, 0.85);
+  border: 1.5px solid var(--c-yellow-gold);
+  outline: none;
+  cursor: pointer;
+}
+
+.game-range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--c-orange-bright);
+  border: 2px solid #FFF8E7;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  transition: transform var(--trans-fast);
+}
+
+.game-range-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+/* --------------------------------------------------------------------------
+   5. GAME OVER STATS GRID
+   -------------------------------------------------------------------------- */
+.gameover-title {
+  color: var(--c-orange-bright);
+}
+
+.new-record-badge {
+  display: inline-block;
+  font-family: var(--font-game);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  color: var(--c-navy-deep);
+  background: var(--c-yellow-gold);
+  padding: 3px 12px;
+  border-radius: 14px;
+  margin-top: 4px;
+  margin-bottom: 12px;
+  box-shadow: 0 0 12px rgba(255, 183, 3, 0.6);
+  animation: recordGlow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes recordGlow {
+  0% { transform: scale(0.98); }
+  100% { transform: scale(1.05); }
+}
+
+.gameover-stats-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.gov-stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background: rgba(11, 19, 37, 0.65);
+  border: 1.5px solid rgba(255, 183, 3, 0.2);
+  border-radius: 12px;
+}
+
+.gov-stat-item.highlight {
+  grid-column: span 2;
+  background: rgba(255, 107, 0, 0.15);
+  border-color: var(--c-yellow-gold);
+}
+
+.gov-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--c-cream-muted);
+}
+
+.gov-val {
+  font-family: var(--font-game);
+  font-size: 1.4rem;
+  color: var(--c-cream-bg);
+  line-height: 1.1;
+  margin-top: 2px;
+}
+
+.gov-stat-item.highlight .gov-val {
+  font-size: 2.2rem;
+  color: var(--c-yellow-gold);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* --------------------------------------------------------------------------
+   6. RESPONSIVE OPTIMISASI GAMEPLAY HUD (MOBILE & TABLET)
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .gameplay-hud {
+    padding: max(8px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) 6px max(10px, env(safe-area-inset-left));
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .ghud-group {
+    gap: 5px;
+  }
+
+  .ghud-pill {
+    padding: 4px 8px;
+    gap: 5px;
+    border-width: 1.5px;
+  }
+
+  .ghud-icon {
+    font-size: 0.9rem;
+  }
+
+  .ghud-label {
+    font-size: 0.48rem;
+  }
+
+  .ghud-value {
+    font-size: 0.9rem;
+  }
+
+  .ghud-police-bar {
+    padding: 4px 8px;
+    min-width: 110px;
+    gap: 6px;
+  }
+
+  .hud-police-track {
+    height: 6px;
+  }
+
+  .police-status-tag {
+    font-size: 0.55rem;
+    padding: 0 4px;
+  }
+
+  .ghud-skill-badge {
+    display: none; /* Disembunyikan di layar mobile kecil agar pandangan runner lega */
+  }
+
+  .btn-hud-pause {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .overlay-title {
+    font-size: 1.7rem;
+  }
+
+  .overlay-card {
+    padding: 18px 16px;
+  }
+
+  .gov-stat-item.highlight .gov-val {
+    font-size: 1.8rem;
+  }
+
+  .gov-val {
+    font-size: 1.15rem;
+  }
+}
+
+/* Optimasi Mode Mobile Portrait Sempit (< 480px) */
+@media (max-width: 480px) {
+  .gameplay-hud {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+      "left center right"
+      "sub  sub    sub";
+    gap: 6px 8px;
+  }
+
+  .ghud-left-group {
+    grid-area: left;
+  }
+
+  .ghud-center-police {
+    grid-area: center;
+    justify-self: center;
+  }
+
+  .ghud-right-group {
+    grid-area: right;
+    justify-self: end;
+  }
+
+  .ghud-speed, .ghud-distance {
+    display: none; /* Sembunyikan speed & distance di bar utama agar highscore & koin tidak tumpang tindih */
+  }
+}
+
+/* Optimasi Landscape Mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+  .gameplay-hud {
+    padding: 4px 12px;
+  }
+
+  .ghud-pill {
+    padding: 2px 6px;
+  }
+
+  .btn-hud-pause {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    min-height: 38px;
+  }
+
+  .overlay-card {
+    padding: 12px 14px;
+  }
+
+  .overlay-title {
+    font-size: 1.4rem;
+  }
+
+  .overlay-subtitle {
+    margin-bottom: 8px;
+  }
+
+  .overlay-btn-group {
+    flex-direction: row;
+    max-width: 100%;
+    gap: 8px;
+  }
+
+  .btn-overlay-primary, .btn-overlay-secondary, .btn-overlay-tertiary {
+    min-height: 38px;
+    font-size: 0.85rem;
+    flex: 1;
+  }
+
+  .pause-audio-section {
+    margin-top: 8px;
+    padding-top: 8px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .pause-audio-title {
+    display: none;
+  }
+}
+

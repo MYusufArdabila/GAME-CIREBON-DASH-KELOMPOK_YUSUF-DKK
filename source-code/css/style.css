@@ -1,0 +1,1881 @@
+/* ==========================================================================
+   CIREBON DASH — STYLESHEET UTAMA
+   Mata Kuliah: Desain Web (Semester 5)
+   Teknologi: Vanilla CSS (Custom Properties, Flexbox, Grid, Responsive)
+   Tema: Budaya Cirebon (Mega Mendung, Candi Bentar, Palet Hangat & Enerjik)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. CSS CUSTOM PROPERTIES (DESIGN TOKENS)
+   Menyimpan variabel warna, font, bayangan, dan ukuran agar konsisten.
+   -------------------------------------------------------------------------- */
+:root {
+  /* Palet Warna Khas Cirebon */
+  --c-orange-primary: #FF6B00;     /* Warm Orange enerjik */
+  --c-orange-bright: #FF8811;      /* Highlight orange */
+  --c-orange-dark: #D94E00;        /* Bayangan tombol & border */
+  
+  --c-yellow-gold: #FFB703;        /* Golden Yellow khas Cirebon */
+  --c-yellow-light: #FFD166;       /* Kuning cerah aksen */
+  
+  --c-navy-deep: #0B1325;          /* Deep Navy (latar malam/kontras) */
+  --c-navy-surface: #152238;       /* Navy kartu & panel UI */
+  --c-navy-soft: #203354;          /* Navy terang untuk hover */
+  
+  --c-cream-bg: #FFF8E7;           /* Cream lembut untuk teks & kontras */
+  --c-cream-muted: #E2D3B8;        /* Cream redup untuk deskripsi */
+  
+  --c-terracotta: #A84323;         /* Merah bata Candi Bentar */
+  --c-brick-dark: #8B2616;         /* Bata gelap Keraton */
+  --c-brick-deep: #6A1A0D;         /* Aksen batas keraton */
+
+  /* Tipografi */
+  --font-game: 'Lilita One', 'Fredoka', cursive, system-ui, sans-serif;
+  --font-ui: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Transisi & Animasi */
+  --trans-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --trans-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --trans-bounce: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Dimensi & Layout */
+  --hud-height: 52px;
+  --touch-target-min: 44px;
+}
+
+/* --------------------------------------------------------------------------
+   2. RESET & PENGATURAN DASAR
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #070D18;
+  font-family: var(--font-ui);
+  color: var(--c-cream-bg);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+/* Gameplay Fullscreen Murni (Desktop & Mobile) */
+body {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  width: 100dvw;
+  height: 100dvh;
+  margin: 0;
+  padding: 0;
+  background: #070D18;
+  position: relative;
+}
+
+/* --------------------------------------------------------------------------
+   3. GAME CONTAINER (FULLSCREEN VIEWPORT MURNI)
+   Memenuhi seluruh 100vw x 100vh tanpa border frame / margin hitam luar.
+   Otomatis responsif di desktop 1920x1080, 1366x768, mobile 390x844, 412x915,
+   serta mode landscape.
+   -------------------------------------------------------------------------- */
+.game-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  width: 100dvw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  aspect-ratio: auto;
+  margin: 0;
+  padding: 0;
+  background-color: var(--c-navy-deep);
+  overflow: hidden;
+  box-shadow: none;
+  border: none;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --------------------------------------------------------------------------
+   4. BACKGROUND ILUSTRASI MULTI-LAYER
+   Layer 1: Langit | Layer 2: Awan Mega Mendung | Layer 3: Candi Bentar
+   Layer 4: Jalan Runner 2.5D | Layer 5: Lentera Keraton
+   -------------------------------------------------------------------------- */
+.game-background {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.bg-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Layer 1: Langit Hangat */
+.bg-layer-sky {
+  background: linear-gradient(180deg, #FF7E29 0%, #FFA834 35%, #FFCE63 70%, #FFE89E 100%);
+  z-index: 1;
+}
+
+.sun-glow {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, rgba(255, 255, 230, 0.85) 0%, rgba(255, 183, 3, 0.4) 50%, rgba(255, 126, 41, 0) 75%);
+  border-radius: 50%;
+  filter: blur(12px);
+  animation: sunPulse 6s ease-in-out infinite alternate;
+}
+
+@keyframes sunPulse {
+  0% { transform: translate(-50%, -50%) scale(0.95); opacity: 0.8; }
+  100% { transform: translate(-50%, -50%) scale(1.08); opacity: 1; }
+}
+
+/* Layer 2: Awan Mega Mendung */
+.bg-layer-clouds {
+  z-index: 2;
+}
+
+.cloud-megamendung {
+  position: absolute;
+  filter: drop-shadow(0 4px 10px rgba(11, 19, 37, 0.25));
+}
+
+.cloud-megamendung .mm-outer { fill: #152238; }
+.cloud-megamendung .mm-mid   { fill: #FF6B00; }
+.cloud-megamendung .mm-inner { fill: #FFB703; }
+
+.cloud-left {
+  top: 6%;
+  left: -20px;
+  width: 220px;
+  opacity: 0.9;
+  animation: cloudDriftLeft 14s ease-in-out infinite alternate;
+}
+
+.cloud-right {
+  top: 12%;
+  right: -30px;
+  width: 240px;
+  opacity: 0.9;
+  animation: cloudDriftRight 18s ease-in-out infinite alternate;
+}
+
+.cloud-center {
+  top: 2%;
+  left: 45%;
+  width: 140px;
+  opacity: 0.7;
+  animation: cloudDriftCenter 10s ease-in-out infinite alternate;
+}
+
+@keyframes cloudDriftLeft {
+  0% { transform: translateX(0) translateY(0); }
+  100% { transform: translateX(25px) translateY(-5px); }
+}
+
+@keyframes cloudDriftRight {
+  0% { transform: translateX(0) translateY(0); }
+  100% { transform: translateX(-30px) translateY(6px); }
+}
+
+@keyframes cloudDriftCenter {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(15px); }
+}
+
+/* Layer 3: Arsitektur Cirebon (Candi Bentar & Gapura Keraton) */
+.bg-layer-architecture {
+  z-index: 3;
+  display: flex;
+  align-items: flex-end;
+  pointer-events: none;
+}
+
+.cirebon-monuments {
+  width: 100%;
+  height: 48%;
+  margin-bottom: 24%;
+  filter: drop-shadow(0 6px 10px rgba(11, 19, 37, 0.45));
+  pointer-events: none;
+}
+
+/* Layer 4: Jalan Runner Perspektif 2.5D */
+.bg-layer-street {
+  z-index: 4;
+  display: flex;
+  align-items: flex-end;
+}
+
+.runner-track {
+  width: 100%;
+  height: 48%;
+  display: block;
+}
+
+/* Layer 5: Foreground & Lentera Keraton */
+.bg-layer-foreground {
+  z-index: 5;
+}
+
+.cirebon-lantern {
+  position: absolute;
+  bottom: 12%;
+  width: 32px;
+  height: 140px;
+}
+
+.lantern-left { left: 4%; }
+.lantern-right { right: 4%; }
+
+.lantern-pole {
+  width: 6px;
+  height: 100%;
+  background: linear-gradient(180deg, #A84323, #152238);
+  margin: 0 auto;
+  border-radius: 2px;
+}
+
+.lantern-head {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 38px;
+  background: var(--c-navy-deep);
+  border: 2px solid var(--c-yellow-gold);
+  border-radius: 4px;
+}
+
+.lantern-glass {
+  position: absolute;
+  inset: 3px;
+  background: radial-gradient(circle, #FFF8E7 0%, #FFB703 60%, #FF6B00 100%);
+  border-radius: 2px;
+  box-shadow: 0 0 15px rgba(255, 183, 3, 0.8);
+}
+
+/* Vignette Halus untuk Kedalaman Game */
+.screen-vignette {
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 80px rgba(11, 19, 37, 0.6);
+  pointer-events: none;
+  z-index: 6;
+}
+
+/* --------------------------------------------------------------------------
+   5. TOP HUD (Koin & High Score)
+   Sederhana, proporsional, dan tidak mendominasi layar.
+   -------------------------------------------------------------------------- */
+.top-hud {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  width: 100%;
+  pointer-events: auto;
+}
+
+.hud-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(11, 19, 37, 0.88);
+  border: 2px solid var(--c-yellow-gold);
+  border-radius: 24px;
+  padding: 6px 14px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  transition: transform var(--trans-fast);
+}
+
+.hud-item:hover {
+  transform: translateY(-1px);
+}
+
+.hud-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.hud-content {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.hud-label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--c-yellow-light);
+  text-transform: uppercase;
+}
+
+.hud-value {
+  font-family: var(--font-game);
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  color: var(--c-cream-bg);
+}
+
+/* --------------------------------------------------------------------------
+   6. SISTEM SCREEN / LAYAR GAME
+   Mengatur show/hide antar screen secara mulus tanpa routing URL.
+   -------------------------------------------------------------------------- */
+.game-screen {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--hud-height);
+  padding-bottom: 18px;
+  z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: scale(0.98);
+  transition: opacity var(--trans-normal), transform var(--trans-normal), visibility var(--trans-normal);
+}
+
+.game-screen.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: scale(1);
+}
+
+/* --------------------------------------------------------------------------
+   7. MAIN MENU: BRAND / LOGO
+   Logo Cirebon Dash yang bold, playful, enerjik dengan motif Mega Mendung.
+   -------------------------------------------------------------------------- */
+.menu-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2px;
+  z-index: 12;
+}
+
+.logo-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: logoFloat 4s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* Aksen Motif Mega Mendung Sayap Kiri & Kanan */
+.badge-accent {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 22px;
+}
+
+.badge-accent span {
+  display: block;
+  height: 4px;
+  border-radius: 4px;
+  background: var(--c-yellow-gold);
+}
+
+.badge-left span:nth-child(1) { width: 100%; background: var(--c-navy-deep); }
+.badge-left span:nth-child(2) { width: 75%; background: var(--c-orange-primary); }
+.badge-left span:nth-child(3) { width: 50%; background: var(--c-yellow-gold); }
+
+.badge-right span:nth-child(1) { width: 100%; background: var(--c-navy-deep); margin-left: auto; }
+.badge-right span:nth-child(2) { width: 75%; background: var(--c-orange-primary); margin-left: auto; }
+.badge-right span:nth-child(3) { width: 50%; background: var(--c-yellow-gold); margin-left: auto; }
+
+.logo-text-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.logo-subheading {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  color: var(--c-navy-deep);
+  background: var(--c-yellow-gold);
+  padding: 2px 10px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.game-title {
+  font-family: var(--font-game);
+  line-height: 0.95;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  text-shadow: 
+    0 4px 0 var(--c-navy-deep),
+    0 6px 12px rgba(11, 19, 37, 0.6);
+}
+
+.word-cirebon {
+  font-size: 2.8rem;
+  color: var(--c-cream-bg);
+  letter-spacing: 0.04em;
+  -webkit-text-stroke: 1.5px var(--c-navy-deep);
+}
+
+.word-dash {
+  font-size: 3.2rem;
+  background: linear-gradient(180deg, #FFE066 0%, #FFB703 40%, #FF6B00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 4px 0 var(--c-brick-dark));
+  transform: skewX(-6deg);
+  display: inline-block;
+}
+
+.tagline {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--c-navy-deep);
+  background: rgba(255, 248, 231, 0.9);
+  padding: 2px 12px;
+  border-radius: 10px;
+  margin-top: 4px;
+  letter-spacing: 0.04em;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* --------------------------------------------------------------------------
+   8. RUNNER CHARACTER PLACEHOLDER (AREA TENGAH)
+   Modular: Karakter 3D Stylized RIDD dengan pose atletis dan idle animation.
+   -------------------------------------------------------------------------- */
+.character-preview-stage {
+  position: relative;
+  width: 180px;
+  height: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  z-index: 11;
+  margin-top: -6px;
+  margin-bottom: 6px;
+}
+
+.runner-character-svg-wrapper {
+  position: relative;
+  width: 140px;
+  height: 185px;
+  animation: runnerIdleSway 2.4s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+@keyframes runnerIdleSway {
+  0% { transform: translateY(0) scaleY(1); }
+  50% { transform: translateY(-8px) scaleY(1.02); }
+  100% { transform: translateY(0) scaleY(1); }
+}
+
+.runner-avatar {
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: drop-shadow(0 8px 14px rgba(11, 19, 37, 0.5));
+}
+
+/* Bayangan Runner di Jalan */
+.runner-ground-shadow {
+  position: absolute;
+  bottom: 22px;
+  width: 120px;
+  height: 18px;
+  background: radial-gradient(ellipse at center, rgba(11, 19, 37, 0.75) 0%, rgba(11, 19, 37, 0) 75%);
+  border-radius: 50%;
+  filter: blur(1.5px);
+  animation: shadowBreathe 2.4s ease-in-out infinite;
+}
+
+@keyframes shadowBreathe {
+  0%, 100% { transform: scale(1); opacity: 0.75; }
+  50% { transform: scale(0.88); opacity: 0.45; }
+}
+
+/* Efek Garis Angin / Kecepatan */
+.speed-streaks {
+  position: absolute;
+  left: -20px;
+  top: 40%;
+  width: 40px;
+  height: 50px;
+  pointer-events: none;
+}
+
+.streak {
+  position: absolute;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8));
+  border-radius: 2px;
+  animation: streakMove 0.8s linear infinite;
+}
+
+.streak.s1 { top: 10px; width: 35px; animation-delay: 0s; }
+.streak.s2 { top: 25px; width: 25px; animation-delay: 0.3s; }
+.streak.s3 { top: 40px; width: 30px; animation-delay: 0.15s; }
+
+@keyframes streakMove {
+  0% { transform: translateX(20px); opacity: 0; }
+  50% { opacity: 0.9; }
+  100% { transform: translateX(-30px); opacity: 0; }
+}
+
+/* Label Karakter */
+.runner-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(11, 19, 37, 0.9);
+  border: 1.5px solid var(--c-yellow-gold);
+  border-radius: 14px;
+  padding: 3px 12px;
+  margin-top: 2px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+}
+
+.runner-badge-icon {
+  font-size: 0.8rem;
+}
+
+.runner-name {
+  font-family: var(--font-game);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  color: var(--c-yellow-gold);
+}
+
+/* --------------------------------------------------------------------------
+   9. TOMBOL UTAMA (PLAY)
+   Tombol paling besar, paling mencolok, beranimasi & memiliki depth 3D.
+   -------------------------------------------------------------------------- */
+.main-cta-wrapper {
+  z-index: 15;
+  margin-bottom: 8px;
+}
+
+.btn {
+  font-family: var(--font-game);
+  cursor: pointer;
+  border: none;
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--trans-fast), box-shadow var(--trans-fast), background-color var(--trans-fast);
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--c-yellow-light);
+  outline-offset: 3px;
+}
+
+/* Tombol PLAY Utama */
+.btn-play {
+  position: relative;
+  gap: 12px;
+  padding: 14px 44px;
+  font-size: 1.9rem;
+  letter-spacing: 0.08em;
+  color: var(--c-cream-bg);
+  background: linear-gradient(180deg, var(--c-orange-bright) 0%, var(--c-orange-primary) 60%, var(--c-orange-dark) 100%);
+  border-radius: 50px;
+  border: 3px solid var(--c-yellow-gold);
+  box-shadow: 
+    0 8px 0 var(--c-brick-dark),
+    0 12px 20px rgba(0, 0, 0, 0.45);
+  min-height: 56px;
+  min-width: 210px;
+  overflow: hidden;
+  animation: playPulse 2.8s ease-in-out infinite;
+}
+
+@keyframes playPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); box-shadow: 0 10px 0 var(--c-brick-dark), 0 15px 25px rgba(255, 107, 0, 0.4); }
+}
+
+/* Efek Kilau Cahaya (Sheen) Tombol Play */
+.btn-play-sheen {
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transform: skewX(-25deg);
+  animation: sheenPass 3.5s infinite;
+}
+
+@keyframes sheenPass {
+  0% { left: -80%; }
+  30%, 100% { left: 150%; }
+}
+
+.btn-play-icon {
+  display: flex;
+  align-items: center;
+  color: var(--c-yellow-gold);
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.4));
+}
+
+.btn-play-text {
+  text-shadow: 0 2px 4px rgba(11, 19, 37, 0.6);
+}
+
+/* Hover State Desktop */
+.btn-play:hover {
+  background: linear-gradient(180deg, #FFA033 0%, var(--c-orange-bright) 60%, var(--c-orange-primary) 100%);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 
+    0 10px 0 var(--c-brick-dark),
+    0 16px 25px rgba(0, 0, 0, 0.5);
+}
+
+/* Active / Pressed State (Tactile Game Feel) */
+.btn-play:active {
+  transform: translateY(6px) scale(0.98);
+  box-shadow: 
+    0 2px 0 var(--c-brick-dark),
+    0 4px 10px rgba(0, 0, 0, 0.35);
+  animation: none;
+}
+
+/* --------------------------------------------------------------------------
+   10. SECONDARY MENU (CHARACTER, HIGH SCORE, SETTINGS)
+   Baris tombol pendukung dengan touch target nyaman (>= 44px).
+   -------------------------------------------------------------------------- */
+.secondary-menu-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  z-index: 15;
+  width: 90%;
+  max-width: 480px;
+}
+
+.btn-secondary {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: var(--touch-target-min);
+  padding: 10px 14px;
+  background: linear-gradient(180deg, var(--c-navy-surface) 0%, var(--c-navy-deep) 100%);
+  border: 2px solid var(--c-yellow-gold);
+  border-radius: 14px;
+  color: var(--c-cream-bg);
+  box-shadow: 
+    0 4px 0 #050A14,
+    0 6px 12px rgba(0, 0, 0, 0.35);
+  font-size: 0.88rem;
+  letter-spacing: 0.05em;
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(180deg, var(--c-navy-soft) 0%, var(--c-navy-surface) 100%);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 6px 0 #050A14,
+    0 8px 15px rgba(0, 0, 0, 0.4);
+}
+
+.btn-secondary:active {
+  transform: translateY(3px);
+  box-shadow: 
+    0 1px 0 #050A14,
+    0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.btn-sec-icon {
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.btn-sec-text {
+  font-family: var(--font-game);
+}
+
+/* --------------------------------------------------------------------------
+   11. PLACEHOLDER MODALS & SCREENS
+   Desain seragam dengan aksen khas Keraton & Mega Mendung.
+   -------------------------------------------------------------------------- */
+.screen-card {
+  width: 90%;
+  max-width: 580px;
+  max-height: 82%;
+  background: var(--c-navy-surface);
+  border: 3px solid var(--c-yellow-gold);
+  border-radius: 20px;
+  box-shadow: 
+    0 16px 40px rgba(0, 0, 0, 0.8),
+    inset 0 2px 0 rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin: auto;
+  z-index: 25;
+}
+
+/* Header Modal */
+.card-header {
+  background: linear-gradient(180deg, #1C2D4A 0%, var(--c-navy-surface) 100%);
+  padding: 16px 20px 12px;
+  text-align: center;
+  border-bottom: 2px solid rgba(255, 183, 3, 0.25);
+  position: relative;
+}
+
+.card-icon-badge {
+  font-size: 2rem;
+  margin-bottom: 4px;
+}
+
+.card-title {
+  font-family: var(--font-game);
+  font-size: 1.6rem;
+  letter-spacing: 0.05em;
+  color: var(--c-yellow-gold);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  line-height: 1.1;
+}
+
+.card-subtitle {
+  font-size: 0.8rem;
+  color: var(--c-cream-muted);
+  margin-top: 3px;
+}
+
+/* Body Modal */
+.card-body {
+  padding: 16px 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* Footer Modal & Tombol Back */
+.card-footer {
+  padding: 12px 20px;
+  background: rgba(11, 19, 37, 0.6);
+  border-top: 2px solid rgba(255, 183, 3, 0.15);
+  display: flex;
+  justify-content: center;
+}
+
+.btn-back {
+  min-height: var(--touch-target-min);
+  padding: 8px 24px;
+  font-size: 0.95rem;
+  background: linear-gradient(180deg, var(--c-terracotta) 0%, var(--c-brick-dark) 100%);
+  border: 2px solid var(--c-yellow-gold);
+  border-radius: 30px;
+  color: var(--c-cream-bg);
+  box-shadow: 0 4px 0 var(--c-brick-deep), 0 6px 12px rgba(0, 0, 0, 0.4);
+  gap: 8px;
+}
+
+.btn-back:hover {
+  background: linear-gradient(180deg, #BA4F2D 0%, var(--c-terracotta) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 var(--c-brick-deep), 0 8px 15px rgba(0, 0, 0, 0.45);
+}
+
+.btn-back:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--c-brick-deep), 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* --------------------------------------------------------------------------
+   12. RINCIAN MODAL KONTEN
+   -------------------------------------------------------------------------- */
+
+/* A. Gameplay Teaser Card */
+.teaser-intro {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--c-cream-bg);
+  background: rgba(255, 107, 0, 0.15);
+  border-left: 3px solid var(--c-orange-primary);
+  padding: 8px 12px;
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 12px;
+}
+
+.feature-preview-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: rgba(11, 19, 37, 0.6);
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 183, 3, 0.15);
+}
+
+.feat-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.feat-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.feat-text strong {
+  font-size: 0.82rem;
+  color: var(--c-yellow-gold);
+}
+
+.feat-text span {
+  font-size: 0.72rem;
+  color: var(--c-cream-muted);
+  line-height: 1.3;
+}
+
+/* B. CHARACTER SELECTION (CHOOSE YOUR RUNNER) */
+.character-selection-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* 1. Character Spotlight / Showcase Panel */
+.character-detail-spotlight {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: linear-gradient(135deg, rgba(14, 25, 48, 0.95) 0%, rgba(20, 36, 68, 0.85) 100%);
+  border: 2px solid var(--c-yellow-gold);
+  border-radius: 16px;
+  padding: 12px 18px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.spotlight-avatar-wrap {
+  width: 72px;
+  height: 72px;
+  min-width: 72px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #FFB703 0%, #FF6B00 70%, #8B2616 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 16px rgba(255, 183, 3, 0.5);
+  border: 3px solid #FFF8E7;
+}
+
+.spotlight-icon-huge {
+  font-size: 2.4rem;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+
+.spotlight-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.spotlight-header-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.spotlight-name {
+  font-family: var(--font-game);
+  font-size: 1.35rem;
+  color: var(--c-yellow-gold);
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+
+.spotlight-status-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 2px 8px;
+  border-radius: 12px;
+  text-transform: uppercase;
+}
+
+.spotlight-status-badge.unlocked {
+  background: #10B981;
+  color: #042F2E;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+}
+
+.spotlight-status-badge.locked {
+  background: #64748B;
+  color: #F8FAFC;
+}
+
+.spotlight-skill-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 183, 3, 0.15);
+  border: 1px solid rgba(255, 183, 3, 0.4);
+  padding: 2px 10px;
+  border-radius: 12px;
+  width: fit-content;
+}
+
+.skill-icon-mini {
+  font-size: 0.95rem;
+}
+
+.skill-name-bold {
+  font-family: var(--font-game);
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  color: #FFE066;
+}
+
+.spotlight-desc {
+  font-size: 0.76rem;
+  color: var(--c-cream-muted);
+  line-height: 1.35;
+  margin-top: 2px;
+  font-style: italic;
+}
+
+/* 2. Character Roster 4 Cards Grid */
+.character-roster-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.roster-card {
+  background: rgba(11, 19, 37, 0.85);
+  border: 2px solid rgba(255, 183, 3, 0.25);
+  border-radius: 14px;
+  padding: 10px 8px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  transition: transform var(--trans-fast), border-color var(--trans-fast), box-shadow var(--trans-fast);
+}
+
+.roster-card:hover:not(.locked) {
+  transform: translateY(-4px);
+  border-color: var(--c-yellow-gold);
+  box-shadow: 0 8px 20px rgba(255, 183, 3, 0.35);
+}
+
+.roster-card.active {
+  border-color: var(--c-yellow-gold);
+  background: linear-gradient(180deg, rgba(255, 107, 0, 0.25) 0%, rgba(14, 25, 48, 0.95) 100%);
+  box-shadow: 0 0 20px rgba(255, 183, 3, 0.4), inset 0 0 10px rgba(255, 183, 3, 0.2);
+  transform: scale(1.02);
+}
+
+.roster-status-chip {
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 2px 6px;
+  border-radius: 8px;
+  margin-bottom: 6px;
+}
+
+.roster-status-chip.unlocked {
+  background: var(--c-yellow-gold);
+  color: var(--c-navy-deep);
+}
+
+.roster-status-chip.locked {
+  background: #334155;
+  color: #CBD5E1;
+  border: 1px solid #64748B;
+}
+
+/* Visual Frame Avatar */
+.roster-visual-frame {
+  width: 68px;
+  height: 80px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+  background: radial-gradient(circle, rgba(255, 183, 3, 0.15) 0%, rgba(11, 19, 37, 0.4) 80%);
+  border-radius: 12px;
+  padding: 4px;
+}
+
+.roster-svg-avatar {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+  transition: filter var(--trans-fast), transform var(--trans-fast);
+}
+
+.roster-card:hover:not(.locked) .roster-svg-avatar {
+  transform: scale(1.08);
+}
+
+/* Locked Character Styling - Dimmed & Identifiable */
+.roster-card.locked {
+  background: rgba(11, 19, 37, 0.65);
+  border-color: rgba(100, 116, 139, 0.35);
+  cursor: pointer;
+}
+
+.roster-card.locked .roster-visual-frame {
+  background: rgba(15, 23, 42, 0.6);
+}
+
+.roster-card.locked .roster-svg-avatar {
+  filter: grayscale(0.85) brightness(0.65) contrast(0.9);
+  opacity: 0.75;
+}
+
+.roster-card.locked .roster-name {
+  color: #94A3B8;
+}
+
+.roster-card.locked .roster-short-desc {
+  color: #64748B;
+}
+
+.lock-watermark {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  font-size: 1.1rem;
+  background: rgba(15, 23, 42, 0.85);
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+.roster-name {
+  font-family: var(--font-game);
+  font-size: 0.92rem;
+  color: var(--c-cream-bg);
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+
+.roster-skill-badge {
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  width: 100%;
+}
+
+.skill-magnet { background: rgba(56, 189, 248, 0.2); color: #38BDF8; border: 1px solid rgba(56, 189, 248, 0.4); }
+.skill-dash { background: rgba(245, 158, 11, 0.2); color: #FBBF24; border: 1px solid rgba(245, 158, 11, 0.4); }
+.skill-coin { background: rgba(16, 185, 129, 0.2); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.4); }
+.skill-shield { background: rgba(168, 85, 247, 0.2); color: #C084FC; border: 1px solid rgba(168, 85, 247, 0.4); }
+
+.roster-short-desc {
+  font-size: 0.62rem;
+  color: var(--c-cream-muted);
+  line-height: 1.25;
+}
+
+/* Shake feedback animation for locked clicks */
+@keyframes shakeLocked {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-5px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+.roster-card.locked-shake {
+  animation: shakeLocked 0.35s ease;
+  border-color: #EF4444 !important;
+}
+
+/* --------------------------------------------------------------------------
+   C. STORY MODAL (KEJARAN DI KOTA CIREBON)
+   -------------------------------------------------------------------------- */
+.modal-story {
+  max-width: 620px;
+}
+
+.story-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.story-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-skip-small {
+  font-family: var(--font-game);
+  font-size: 0.76rem;
+  letter-spacing: 0.06em;
+  background: rgba(255, 183, 3, 0.15);
+  color: var(--c-yellow-gold);
+  border: 1.5px solid var(--c-yellow-gold);
+  border-radius: 16px;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: all var(--trans-fast);
+}
+
+.btn-skip-small:hover {
+  background: var(--c-yellow-gold);
+  color: var(--c-navy-deep);
+  transform: scale(1.05);
+}
+
+.story-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.story-panels-container {
+  position: relative;
+  min-height: 220px;
+}
+
+.story-panel-slide {
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+  animation: fadeInStory 0.35s ease forwards;
+}
+
+.story-panel-slide.active {
+  display: flex;
+}
+
+@keyframes fadeInStory {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.story-panel-art {
+  width: 100%;
+  height: 120px;
+  border-radius: 14px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 2px solid rgba(255, 183, 3, 0.3);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+.art-cirebon-walk {
+  background: linear-gradient(180deg, #1E3A8A 0%, #D97706 60%, #451A03 100%);
+}
+
+.art-siren {
+  background: linear-gradient(135deg, #7F1D1D 0%, #0F172A 50%, #1E3A8A 100%);
+}
+
+.art-panic {
+  background: linear-gradient(135deg, #B45309 0%, #1E1B4B 100%);
+}
+
+.art-sprint {
+  background: linear-gradient(135deg, #EA580C 0%, #7C2D12 50%, #0F172A 100%);
+}
+
+.comic-badge {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  font-family: var(--font-game);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.6);
+  color: var(--c-yellow-gold);
+  border: 1px solid var(--c-yellow-gold);
+}
+
+.story-art-illustration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.story-art-icon {
+  font-size: 3.2rem;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.6));
+}
+
+.siren-pulse {
+  animation: sirenPulseEffect 0.6s infinite alternate;
+}
+
+@keyframes sirenPulseEffect {
+  0% { transform: scale(0.95); filter: drop-shadow(0 0 10px #38BDF8); }
+  100% { transform: scale(1.1); filter: drop-shadow(0 0 15px #EF4444); }
+}
+
+.sprint-hero {
+  animation: heroSprintAnim 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes heroSprintAnim {
+  0% { transform: translateX(-10px) rotate(-3deg); }
+  100% { transform: translateX(10px) rotate(3deg); }
+}
+
+.story-dialog-box {
+  background: rgba(15, 23, 42, 0.9);
+  border: 1.5px solid var(--c-yellow-gold);
+  border-radius: 12px;
+  padding: 12px 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.dialog-speaker {
+  font-family: var(--font-game);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: var(--c-yellow-gold);
+  margin-bottom: 4px;
+}
+
+.dialog-text {
+  font-size: 0.82rem;
+  color: var(--c-cream-bg);
+  line-height: 1.45;
+}
+
+.story-stepper-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.story-stepper-dots .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 183, 3, 0.3);
+  transition: all var(--trans-fast);
+}
+
+.story-stepper-dots .dot.active {
+  width: 24px;
+  border-radius: 10px;
+  background: var(--c-yellow-gold);
+  box-shadow: 0 0 8px rgba(255, 183, 3, 0.6);
+}
+
+.story-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.btn-story-nav {
+  flex: 1;
+  min-height: 42px;
+  font-family: var(--font-game);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  background: rgba(30, 41, 59, 0.8);
+  color: var(--c-cream-bg);
+  border: 1.5px solid #64748B;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all var(--trans-fast);
+}
+
+.btn-story-nav:hover:not(:disabled) {
+  background: #334155;
+  border-color: var(--c-yellow-gold);
+}
+
+.btn-story-nav:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-story-nav.highlight {
+  background: linear-gradient(180deg, var(--c-orange-bright) 0%, var(--c-orange-primary) 100%);
+  border-color: var(--c-yellow-gold);
+  box-shadow: 0 4px 10px rgba(255, 107, 0, 0.4);
+}
+
+.btn-story-nav.highlight:hover {
+  background: linear-gradient(180deg, #FFA033 0%, var(--c-orange-bright) 100%);
+}
+
+.btn-story-play {
+  flex: 1;
+  min-height: 44px;
+  font-family: var(--font-game);
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+  background: linear-gradient(180deg, #10B981 0%, #059669 100%);
+  color: #FFF;
+  border: 2px solid #34D399;
+  border-radius: 22px;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.5);
+  cursor: pointer;
+  animation: pulsePlay 1s ease-in-out infinite alternate;
+}
+
+@keyframes pulsePlay {
+  0% { transform: scale(0.98); }
+  100% { transform: scale(1.03); }
+}
+
+/* --------------------------------------------------------------------------
+   D. HOW TO PLAY MODAL
+   -------------------------------------------------------------------------- */
+.modal-howtoplay {
+  max-width: 600px;
+}
+
+.howtoplay-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.guide-card {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1.5px solid rgba(255, 183, 3, 0.25);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.guide-card.highlight-chase {
+  border-color: #EF4444;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.guide-card.highlight-skill {
+  border-color: #38BDF8;
+  background: rgba(56, 189, 248, 0.1);
+}
+
+.guide-card-icon {
+  font-size: 1.5rem;
+}
+
+.guide-card-title {
+  font-family: var(--font-game);
+  font-size: 0.82rem;
+  color: var(--c-yellow-gold);
+  letter-spacing: 0.05em;
+}
+
+.guide-card.highlight-chase .guide-card-title {
+  color: #F87171;
+}
+
+.guide-card.highlight-skill .guide-card-title {
+  color: #7DD3FC;
+}
+
+.guide-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.72rem;
+  color: var(--c-cream-muted);
+}
+
+.key-pill {
+  font-family: var(--font-game);
+  font-size: 0.65rem;
+  letter-spacing: 0.04em;
+  background: #334155;
+  color: #FFF;
+  padding: 1px 6px;
+  border-radius: 4px;
+  border: 1px solid #64748B;
+  display: inline-block;
+}
+
+.guide-text {
+  font-size: 0.72rem;
+  color: var(--c-cream-muted);
+  line-height: 1.4;
+}
+
+/* E. High Score Card */
+.score-showcase {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.primary-score-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(11, 19, 37, 0.8);
+  border: 2px solid var(--c-yellow-gold);
+  border-radius: 16px;
+  padding: 12px 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.score-caption {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--c-yellow-gold);
+}
+
+.score-number-wrapper {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.score-number {
+  font-family: var(--font-game);
+  font-size: 2.8rem;
+  color: var(--c-cream-bg);
+  line-height: 1;
+}
+
+.score-unit {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--c-yellow-light);
+}
+
+.stats-table {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 14px;
+  background: rgba(11, 19, 37, 0.5);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 183, 3, 0.15);
+}
+
+.stat-name {
+  font-size: 0.82rem;
+  color: var(--c-cream-bg);
+}
+
+.stat-val {
+  font-family: var(--font-game);
+  font-size: 0.95rem;
+  color: var(--c-yellow-gold);
+}
+
+.stat-val.highlight {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--c-orange-bright);
+}
+
+/* D. Settings Card */
+.settings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.setting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: rgba(11, 19, 37, 0.6);
+  border: 1.5px solid rgba(255, 183, 3, 0.2);
+  border-radius: 12px;
+}
+
+.setting-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.setting-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--c-cream-bg);
+}
+
+.setting-desc {
+  font-size: 0.72rem;
+  color: var(--c-cream-muted);
+}
+
+/* Toggle Switch ON/OFF */
+.btn-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #34495E;
+  border: 2px solid #7F8C8D;
+  border-radius: 20px;
+  padding: 4px 10px;
+  min-height: var(--touch-target-min);
+  cursor: pointer;
+  transition: background-color var(--trans-fast), border-color var(--trans-fast);
+}
+
+.btn-toggle .toggle-track {
+  width: 32px;
+  height: 18px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 12px;
+  position: relative;
+  display: inline-block;
+}
+
+.btn-toggle .toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  background: #BDC3C7;
+  border-radius: 50%;
+  transition: transform var(--trans-fast), background-color var(--trans-fast);
+}
+
+.btn-toggle .toggle-text {
+  font-family: var(--font-game);
+  font-size: 0.85rem;
+  color: #BDC3C7;
+  width: 28px;
+}
+
+/* Toggle Aktif (ON) */
+.btn-toggle.active {
+  background: var(--c-orange-dark);
+  border-color: var(--c-yellow-gold);
+}
+
+.btn-toggle.active .toggle-thumb {
+  transform: translateX(14px);
+  background: var(--c-yellow-gold);
+}
+
+.btn-toggle.active .toggle-text {
+  color: var(--c-yellow-light);
+}
+
+/* Info Footer Settings */
+.setting-footer-info {
+  margin-top: 6px;
+  text-align: center;
+  padding: 10px;
+  background: rgba(11, 19, 37, 0.4);
+  border-radius: 10px;
+}
+
+.game-meta p {
+  font-size: 0.72rem;
+  color: var(--c-cream-muted);
+  line-height: 1.4;
+}
+
+.game-meta .meta-tag {
+  color: var(--c-yellow-gold);
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   13. RESPONSIVE DESIGN (DESKTOP & MOBILE COHESION)
+   Penting: Visual identity tetap sama di desktop maupun mobile.
+   Menyesuaikan skala elemen dengan media queries tanpa merusak rasio visual.
+   -------------------------------------------------------------------------- */
+
+/* Tampilan Layar Sedang & Laptop Kecil */
+@media (max-width: 900px) {
+  .word-cirebon { font-size: 2.3rem; }
+  .word-dash { font-size: 2.7rem; }
+  .character-preview-stage { height: 195px; }
+  .runner-character-svg-wrapper { width: 125px; height: 165px; }
+  .btn-play { min-width: 190px; font-size: 1.7rem; padding: 12px 36px; }
+  .character-roster-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .howtoplay-grid { grid-template-columns: 1fr; }
+}
+
+/* Tampilan Mobile & Tablet (Layar Sempit / Vertikal) */
+@media (max-width: 768px) {
+  .game-container {
+    width: 100vw;
+    height: 100vh;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 0;
+    box-shadow: none;
+    aspect-ratio: auto;
+  }
+
+  .top-hud {
+    padding: 10px 14px;
+  }
+
+  .hud-item {
+    padding: 4px 10px;
+  }
+
+  .hud-label {
+    font-size: 0.58rem;
+  }
+
+  .hud-value {
+    font-size: 0.95rem;
+  }
+
+  .logo-subheading {
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+  }
+
+  .word-cirebon {
+    font-size: 1.9rem;
+  }
+
+  .word-dash {
+    font-size: 2.2rem;
+  }
+
+  .tagline {
+    font-size: 0.72rem;
+    padding: 2px 8px;
+  }
+
+  .character-preview-stage {
+    height: 185px;
+    width: 150px;
+    margin-top: -6px;
+    margin-bottom: 6px;
+  }
+
+  .runner-character-svg-wrapper {
+    width: 115px;
+    height: 150px;
+  }
+
+  .runner-ground-shadow {
+    width: 100px;
+    bottom: 18px;
+  }
+
+  .cirebon-monuments {
+    height: 44%;
+    margin-bottom: 26%;
+  }
+
+  .btn-play {
+    min-width: 180px;
+    font-size: 1.55rem;
+    padding: 10px 32px;
+  }
+
+  .secondary-menu-bar {
+    width: 95%;
+    max-width: 440px;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn-secondary {
+    padding: 8px 10px;
+    font-size: 0.74rem;
+    min-height: 40px;
+    flex: 1 1 30%;
+  }
+
+  .btn-sec-icon {
+    font-size: 0.95rem;
+  }
+
+  .feature-preview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Character Selection Modal Responsive */
+  .character-detail-spotlight {
+    padding: 10px 12px;
+    gap: 12px;
+  }
+
+  .spotlight-avatar-wrap {
+    width: 58px;
+    height: 58px;
+    min-width: 58px;
+  }
+
+  .spotlight-icon-huge {
+    font-size: 1.9rem;
+  }
+
+  .spotlight-name {
+    font-size: 1.15rem;
+  }
+
+  .spotlight-desc {
+    font-size: 0.7rem;
+  }
+
+  .character-roster-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .roster-card {
+    padding: 8px 6px;
+    gap: 2px;
+  }
+
+  .roster-visual-frame {
+    width: 54px;
+    height: 64px;
+    margin-bottom: 4px;
+  }
+
+  .roster-name {
+    font-size: 0.84rem;
+  }
+
+  .roster-short-desc {
+    display: none; /* Sembunyikan deskripsi mini di kartu roster mobile agar hemat ruang */
+  }
+
+  .screen-card {
+    width: 94%;
+    max-height: 90%;
+  }
+
+  .card-header {
+    padding: 12px 14px 8px;
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+  }
+
+  .card-body {
+    padding: 12px 14px;
+  }
+
+  .score-number {
+    font-size: 2.2rem;
+  }
+
+  /* Story Modal Responsive */
+  .story-panel-art {
+    height: 95px;
+  }
+
+  .story-art-icon {
+    font-size: 2.5rem;
+  }
+
+  .dialog-text {
+    font-size: 0.76rem;
+  }
+
+  .howtoplay-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Optimasi Khusus Layar Sangat Sempit (Mobile < 380px) */
+@media (max-width: 380px) {
+  .word-cirebon { font-size: 1.6rem; }
+  .word-dash { font-size: 1.9rem; }
+  .character-preview-stage { height: 165px; width: 130px; }
+  .runner-character-svg-wrapper { width: 100px; height: 132px; }
+  .runner-ground-shadow { width: 85px; bottom: 15px; }
+  .secondary-menu-bar { flex-direction: column; width: 90%; }
+  .btn-secondary { width: 100%; min-height: 42px; }
+  .character-roster-grid { grid-template-columns: 1fr 1fr; }
+}

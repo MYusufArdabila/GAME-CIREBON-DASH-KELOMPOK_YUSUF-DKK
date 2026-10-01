@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="description" content="Cirebon Dash — Game Endless Runner 3D Web bertema Budaya Cirebon karya Mahasiswa Desain Web Semester 5.">
+  <title>Cirebon Dash — Endless Runner Game Cirebon</title>
+
+  <!-- Google Fonts: Lilita One (Game Typography) & Poppins (UI Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets Game -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/game.css">
+</head>
+<body>
+
+  <!-- ========================================================== -->
+  <!-- MAIN GAME CONTAINER (Viewport Utama Fullscreen Adaptif)   -->
+  <!-- ========================================================== -->
+  <main class="game-container" id="game-container" role="application" aria-label="Permainan Cirebon Dash">
+
+    <!-- -------------------------------------------------------- -->
+    <!-- BACKGROUND PARALLAX ILUSTRASI CIREBON (LAYER 1 - 5)      -->
+    <!-- -------------------------------------------------------- -->
+    <div class="game-background" aria-hidden="true">
+      <!-- Layer 1: Langit Gradasi Oranye Hangat Sore Hari -->
+      <div class="bg-layer bg-layer-sky">
+        <div class="sun-glow"></div>
+      </div>
+
+      <!-- Layer 2: Awan Mega Mendung Khas Cirebon -->
+      <div class="bg-layer bg-layer-clouds">
+        <svg class="cloud-megamendung cloud-left" viewBox="0 0 240 120" xmlns="http://www.w3.org/2000/svg">
+          <path class="mm-outer" d="M10,80 C30,30 90,30 110,60 C130,20 200,30 220,70 C240,110 180,120 140,110 C100,125 40,120 10,80 Z"/>
+          <path class="mm-mid" d="M30,80 C45,45 90,45 105,68 C120,38 175,45 190,75 C205,105 160,112 130,105 C95,115 55,110 30,80 Z"/>
+          <path class="mm-inner" d="M50,80 C60,60 90,60 100,74 C110,54 150,60 160,80 C170,100 140,105 120,100 C95,108 70,102 50,80 Z"/>
+        </svg>
+
+        <svg class="cloud-megamendung cloud-right" viewBox="0 0 280 140" xmlns="http://www.w3.org/2000/svg">
+          <path class="mm-outer" d="M20,90 C40,40 110,40 130,70 C150,30 230,40 250,80 C270,120 210,135 160,125 C120,140 50,135 20,90 Z"/>
+          <path class="mm-mid" d="M45,90 C60,55 110,55 125,78 C140,48 205,55 220,85 C235,115 190,126 150,118 C115,130 70,125 45,90 Z"/>
+          <path class="mm-inner" d="M70,90 C80,70 110,70 120,84 C130,64 175,70 185,90 C195,110 165,118 140,112 C115,120 90,115 70,90 Z"/>
+        </svg>
+
+        <svg class="cloud-megamendung cloud-center" viewBox="0 0 160 80" xmlns="http://www.w3.org/2000/svg">
+          <path class="mm-outer" d="M10,55 C25,20 65,20 80,45 C95,15 140,25 150,55 C160,80 120,88 95,80 C70,90 30,85 10,55 Z"/>
+          <path class="mm-mid" d="M25,55 C35,32 65,32 75,50 C85,30 120,35 130,58 C138,76 110,82 90,75 C70,82 40,78 25,55 Z"/>
+          <path class="mm-inner" d="M40,55 C48,40 68,40 75,52 C82,38 105,42 112,58 C118,70 100,75 85,70 C72,75 52,72 40,55 Z"/>
+        </svg>
+      </div>
+
+      <!-- Layer 3: Candi Bentar & Gerbang Keraton Cirebon -->
+      <div class="bg-layer bg-layer-architecture">
+        <svg class="cirebon-monuments" viewBox="0 0 1000 320" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <g fill="#8B2616">
+            <polygon points="0,320 0,160 50,160 70,140 100,140 120,110 150,110 170,70 190,70 200,40 210,40 215,10 220,10 220,320"/>
+            <polygon points="1000,320 1000,160 950,160 930,140 900,140 880,110 850,110 830,70 810,70 800,40 790,40 785,10 780,10 780,320"/>
+          </g>
+          <g fill="#A84323">
+            <polygon points="0,320 0,180 40,180 60,160 90,160 110,130 140,130 160,90 180,90 190,60 200,60 205,30 210,30 210,320"/>
+            <polygon points="1000,320 1000,180 960,180 940,160 910,160 890,130 860,130 840,90 820,90 810,60 800,60 795,30 790,30 790,320"/>
+          </g>
+          <g fill="#FFB703">
+            <rect x="215" y="10" width="5" height="15"/>
+            <rect x="780" y="10" width="5" height="15"/>
+            <circle cx="217" cy="8" r="4"/>
+            <circle cx="783" cy="8" r="4"/>
+            <rect x="195" y="40" width="10" height="5"/>
+            <rect x="795" y="40" width="10" height="5"/>
+            <rect x="165" y="70" width="15" height="6"/>
+            <rect x="820" y="70" width="15" height="6"/>
+            <rect x="115" y="110" width="25" height="8"/>
+            <rect x="860" y="110" width="25" height="8"/>
+          </g>
+          <g fill="#6A1A0D" opacity="0.6">
+            <polygon points="260,320 260,200 290,200 310,170 330,170 340,140 350,140 355,110 360,110 360,320"/>
+            <polygon points="740,320 740,200 710,200 690,170 670,170 660,140 650,140 645,110 640,110 640,320"/>
+          </g>
+          <g fill="#152238" opacity="0.85">
+            <rect x="360" y="220" width="280" height="100"/>
+            <polygon points="340,220 500,160 660,220"/>
+            <polygon points="420,160 500,110 580,160" fill="#FFB703"/>
+            <circle cx="500" cy="100" r="8" fill="#FFB703"/>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Layer 4: Lintasan Aspal Runner 2.5D -->
+      <div class="bg-layer bg-layer-street">
+        <svg class="runner-track" viewBox="0 0 1000 360" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="0,360 1000,360 700,0 300,0" fill="#152238"/>
+          <polygon points="0,360 140,360 360,0 300,0" fill="#A84323"/>
+          <polygon points="860,360 1000,360 700,0 640,0" fill="#A84323"/>
+          <polygon points="140,360 170,360 370,0 360,0" fill="#FFB703"/>
+          <polygon points="830,360 860,360 640,0 630,0" fill="#FFB703"/>
+          <polygon points="170,360 830,360 630,0 370,0" fill="#0B1325"/>
+          <line x1="390" y1="360" x2="455" y2="0" stroke="#FFB703" stroke-width="8" stroke-dasharray="30 20"/>
+          <line x1="610" y1="360" x2="545" y2="0" stroke="#FFB703" stroke-width="8" stroke-dasharray="30 20"/>
+        </svg>
+      </div>
+
+      <!-- Layer 5: Foreground & Lentera Keraton -->
+      <div class="bg-layer bg-layer-foreground">
+        <div class="cirebon-lantern lantern-left">
+          <div class="lantern-pole"></div>
+          <div class="lantern-head">
+            <div class="lantern-glass"></div>
+            <div class="lantern-light"></div>
+          </div>
+        </div>
+        <div class="cirebon-lantern lantern-right">
+          <div class="lantern-pole"></div>
+          <div class="lantern-head">
+            <div class="lantern-glass"></div>
+            <div class="lantern-light"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Efek Vignette Game -->
+      <div class="screen-vignette"></div>
+    </div>
+
+    <!-- -------------------------------------------------------- -->
+    <!-- TOP HUD UTAMA (Menu Screens: Koin & High Score)          -->
+    <!-- -------------------------------------------------------- -->
+    <header class="top-hud" id="main-top-hud" aria-label="Informasi Pemain">
+      <!-- Badge Koin -->
+      <div class="hud-item hud-coin" title="Total Koin Terkumpul">
+        <span class="hud-icon" aria-hidden="true">
+          <svg class="game-svg-icon hud-svg-coin" viewBox="0 0 24 24" fill="none" stroke="#FFB703" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9" fill="rgba(255, 183, 3, 0.2)"/>
+            <circle cx="12" cy="12" r="5" stroke="#FFE066" stroke-dasharray="2 2"/>
+            <path d="M12 8v8M10 10h4M10 14h4" stroke="#FFF8E7"/>
+          </svg>
+        </span>
+        <div class="hud-content">
+          <span class="hud-label">KOIN</span>
+          <span class="hud-value" id="hud-coin-count">0000</span>
+        </div>
+      </div>
+
+      <!-- Badge High Score (Menu Utama Saja) -->
+      <div class="hud-item hud-highscore" title="Skor Tertinggi">
+        <span class="hud-icon" aria-hidden="true">
+          <svg class="game-svg-icon hud-svg-trophy" viewBox="0 0 24 24" fill="none" stroke="#FBBF24" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 9H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2"/>
+            <path d="M18 9h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2"/>
+            <path d="M4 3h16v7a8 8 0 0 1-16 0V3z" fill="rgba(245, 158, 11, 0.2)"/>
+            <path d="M12 15v4M8 21h8"/>
+          </svg>
+        </span>
+        <div class="hud-content">
+          <span class="hud-label">HIGH SCORE</span>
+          <span class="hud-value" id="hud-highscore-count">0000</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ======================================================== -->
+    <!-- SCREEN 1: MAIN MENU                                      -->
+    <!-- ======================================================== -->
+    <section id="screen-main-menu" class="game-screen active" aria-label="Menu Utama Cirebon Dash">
+      
+      <!-- LOGO UTAMA GAME -->
+      <div class="menu-brand">
+        <div class="logo-badge">
+          <div class="badge-accent badge-left" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="logo-text-group">
+            <span class="logo-subheading">ENDLESS RUNNER CIREBON</span>
+            <h1 class="game-title">
+              <span class="word-cirebon">CIREBON</span>
+              <span class="word-dash">DASH</span>
+            </h1>
+          </div>
+          <div class="badge-accent badge-right" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+        <p class="tagline">RUN. ESCAPE. SURVIVE.</p>
+      </div>
+
+      <!-- 3D RUNNER PREVIEW STAGE (ARDA) -->
+      <div class="character-preview-stage" id="runner-character-container">
+        <div class="runner-ground-shadow" aria-hidden="true"></div>
+        <div class="speed-streaks" aria-hidden="true">
+          <span class="streak s1"></span>
+          <span class="streak s2"></span>
+          <span class="streak s3"></span>
+        </div>
+
+        <div class="runner-character-svg-wrapper" id="runner-character">
+          <svg class="runner-avatar" viewBox="0 0 160 230" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="skinGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFE3D1"/>
+                <stop offset="60%" stop-color="#F2BA95"/>
+                <stop offset="100%" stop-color="#D9976D"/>
+              </linearGradient>
+              <linearGradient id="jacketGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FF8533"/>
+                <stop offset="40%" stop-color="#FF6B00"/>
+                <stop offset="100%" stop-color="#C73E00"/>
+              </linearGradient>
+              <linearGradient id="pantsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#24344D"/>
+                <stop offset="70%" stop-color="#152238"/>
+                <stop offset="100%" stop-color="#0B1325"/>
+              </linearGradient>
+              <linearGradient id="shoeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFE066"/>
+                <stop offset="50%" stop-color="#FFB703"/>
+                <stop offset="100%" stop-color="#D97706"/>
+              </linearGradient>
+              <linearGradient id="headbandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#A84323"/>
+                <stop offset="50%" stop-color="#8B2616"/>
+                <stop offset="100%" stop-color="#5C1408"/>
+              </linearGradient>
+              <filter id="heroGlow" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#0B1325" flood-opacity="0.45"/>
+              </filter>
+            </defs>
+            <g filter="url(#heroGlow)">
+              <g class="leg-back">
+                <path d="M68,124 L52,160 L65,165 L80,128 Z" fill="url(#pantsGrad)"/>
+                <path d="M52,160 L40,196 L52,198 L65,165 Z" fill="url(#skinGrad)"/>
+                <rect x="38" y="194" width="15" height="6" fill="#FFF8E7" rx="1"/>
+                <path d="M28,198 L54,200 L50,214 L22,212 L20,204 Z" fill="url(#shoeGrad)"/>
+                <path d="M20,210 L50,213 L48,217 L20,215 Z" fill="#FFF8E7"/>
+              </g>
+              <g class="arm-back">
+                <path d="M66,76 L40,94 L46,105 L70,86 Z" fill="#D94E00"/>
+                <path d="M40,94 L30,120 L40,124 L48,102 Z" fill="url(#skinGrad)"/>
+                <circle cx="34" cy="123" r="7" fill="url(#skinGrad)"/>
+              </g>
+              <g class="torso">
+                <path d="M54,68 L106,68 L100,132 L60,132 Z" fill="url(#jacketGrad)"/>
+                <path d="M62,94 Q80,84 98,96" stroke="#FFB703" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+                <path d="M64,104 Q80,96 96,106" stroke="#FFF8E7" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <polygon points="73,68 87,68 80,82" fill="#FFF8E7"/>
+                <rect x="60" y="126" width="40" height="7" fill="#0B1325" rx="1"/>
+                <rect x="76" y="125" width="8" height="9" fill="#FFB703" rx="1"/>
+              </g>
+              <g class="leg-front">
+                <path d="M82,126 L104,158 L92,165 L72,130 Z" fill="url(#pantsGrad)"/>
+                <path d="M104,158 L122,192 L108,196 L92,165 Z" fill="url(#skinGrad)"/>
+                <rect x="110" y="190" width="16" height="6" fill="#FFF8E7" rx="1"/>
+                <path d="M104,196 L134,198 L130,212 L98,210 L96,204 Z" fill="url(#shoeGrad)"/>
+                <path d="M96,208 L130,211 L128,215 L96,213 Z" fill="#FFF8E7"/>
+              </g>
+              <g class="arm-front">
+                <path d="M94,76 L118,96 L112,106 L88,86 Z" fill="url(#jacketGrad)"/>
+                <path d="M118,96 L130,122 L120,126 L110,104 Z" fill="url(#skinGrad)"/>
+                <circle cx="126" cy="125" r="7" fill="url(#skinGrad)"/>
+              </g>
+              <g class="head-group">
+                <ellipse cx="80" cy="46" rx="22" ry="24" fill="url(#skinGrad)"/>
+                <path d="M58,38 Q80,10 102,38 Q95,16 80,16 Q65,18 58,38 Z" fill="#181512"/>
+                <path d="M58,34 Q80,26 102,34 L100,42 Q80,36 60,42 Z" fill="url(#headbandGrad)"/>
+                <polygon points="90,32 104,18 96,34" fill="#FFB703"/>
+                <rect x="62" y="38" width="36" height="3" fill="#FFB703" opacity="0.8"/>
+                <ellipse cx="88" cy="46" rx="3.5" ry="3.5" fill="#152238"/>
+                <circle cx="89.5" cy="44.5" r="1" fill="#FFF"/>
+                <path d="M83,38 L95,40" stroke="#181512" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M84,55 Q90,60 96,55" stroke="#8B2616" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              </g>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- TOMBOL UTAMA: PLAY -->
+      <div class="main-cta-wrapper">
+        <button id="btn-play" class="btn btn-play" type="button" aria-label="Mulai Permainan Cirebon Dash">
+          <span class="btn-play-sheen" aria-hidden="true"></span>
+          <span class="btn-play-icon" aria-hidden="true">
+            <svg class="game-svg-icon" viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 3 19 12 5 21 5 3" fill="currentColor"/>
+            </svg>
+          </span>
+          <span class="btn-play-text">PLAY</span>
+        </button>
+      </div>
+
+      <!-- TOMBOL SEKUNDER MENU -->
+      <nav class="secondary-menu-bar" aria-label="Menu Tambahan">
+        <button id="btn-character" class="btn btn-secondary" type="button" aria-label="Buka Pemilihan Karakter">
+          <span class="btn-sec-icon" aria-hidden="true">
+            <svg class="game-svg-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </span>
+          <span class="btn-sec-text">CHARACTERS</span>
+        </button>
+
+        <button id="btn-story" class="btn btn-secondary" type="button" aria-label="Buka Cerita Cirebon Dash">
+          <span class="btn-sec-icon" aria-hidden="true">
+            <svg class="game-svg-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            </svg>
+          </span>
+          <span class="btn-sec-text">STORY</span>
+        </button>
+
+        <button id="btn-howtoplay" class="btn btn-secondary" type="button" aria-label="Buka Petunjuk Kontrol">
+          <span class="btn-sec-icon" aria-hidden="true">
+            <svg class="game-svg-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+          </span>
+          <span class="btn-sec-text">HOW TO PLAY</span>
+        </button>
+
+        <button id="btn-highscore" class="btn btn-secondary" type="button" aria-label="Buka Papan Skor">
+          <span class="btn-sec-icon" aria-hidden="true">
+            <svg class="game-svg-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 9H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2"/><path d="M18 9h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2"/><path d="M4 3h16v7a8 8 0 0 1-16 0V3z"/><path d="M12 15v4M8 21h8"/>
+            </svg>
+          </span>
+          <span class="btn-sec-text">HIGH SCORE</span>
+        </button>
+
+        <button id="btn-settings" class="btn btn-secondary" type="button" aria-label="Buka Pengaturan Game">
+          <span class="btn-sec-icon" aria-hidden="true">
+            <svg class="game-svg-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+            </svg>
+          </span>
+          <span class="btn-sec-text">SETTINGS</span>
+        </button>
+      </nav>
+
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SCREEN 2: GAMEPLAY ENDLESS RUNNER                        -->
+    <!-- ======================================================== -->
+    <section id="screen-gameplay" class="game-screen" aria-label="Layar Gameplay Cirebon Dash">
+      
+      <!-- Kontainer Canvas 2.5D -->
+      <div class="gameplay-canvas-wrapper">
+        <canvas id="game-canvas"></canvas>
+      </div>
+
+      <!-- BANNER PERINGATAN KERETA MENDEKAT -->
+      <div id="train-warning-banner" class="train-warning-banner" aria-live="assertive">
+        <div class="train-warning-content">
+          <svg class="game-svg-icon train-alert-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#FFB703" stroke-width="2.5">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <span class="train-warning-text">KERETA MENDEKAT!</span>
+        </div>
+      </div>
+
+      <!-- IN-GAME TOP HUD RESPONSIVE (DESKTOP & MOBILE) -->
+      <header id="gameplay-hud" class="gameplay-hud" aria-label="HUD Permainan">
+        
+        <!-- GRUP KIRI: KOIN & ACTIVE SKILL -->
+        <div class="ghud-group ghud-left-group">
+          <!-- KOIN -->
+          <div class="ghud-pill ghud-coin" title="Koin Terkumpul Sesi Ini">
+            <span class="ghud-icon" aria-hidden="true">
+              <svg class="game-svg-icon hud-svg-coin" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#FFB703" stroke-width="2.2">
+                <circle cx="12" cy="12" r="9"/>
+                <circle cx="12" cy="12" r="5" stroke-dasharray="2 2"/>
+                <path d="M12 7v10M9 9.5h6M9 14.5h6"/>
+              </svg>
+            </span>
+            <div class="ghud-text">
+              <span class="ghud-label">KOIN</span>
+              <span class="ghud-value" id="game-hud-coins">0000</span>
+            </div>
+            <!-- Floating Plus Popup Animasi -->
+            <div id="hud-coin-floating-plus" class="hud-coin-floating">+1</div>
+          </div>
+
+          <!-- SKILL -->
+          <div class="ghud-pill ghud-skill-badge" id="ghud-active-skill" title="Skill Karakter Aktif">
+            <span class="ghud-icon" id="game-hud-skill-icon">
+              <svg class="game-svg-icon icon-magnet" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#38BDF8" stroke-width="2.2"><path d="M6 3v6a6 6 0 0 0 12 0V3"/><line x1="4" y1="3" x2="8" y2="3"/><line x1="16" y1="3" x2="20" y2="3"/></svg>
+            </span>
+            <div class="ghud-text">
+              <span class="ghud-label">SKILL</span>
+              <span class="ghud-value" id="game-hud-skill-val">MAGNET</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- GRUP TENGAH: POLICE DISTANCE METER -->
+        <div class="ghud-group ghud-center-police">
+          <div class="ghud-pill ghud-police-bar" title="Jarak Patroli Polisi Pengejar">
+            <span class="ghud-icon police-icon" aria-hidden="true">
+              <svg class="game-svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#38BDF8" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <circle cx="12" cy="11" r="2.5" fill="#EF4444"/>
+              </svg>
+            </span>
+            <div class="ghud-text police-meter-box">
+              <div class="police-header-row">
+                <span class="ghud-label">POLICE</span>
+                <span class="police-status-tag" id="game-hud-police-status">SAFE</span>
+              </div>
+              <div class="hud-police-track">
+                <div class="hud-police-fill safe" id="game-hud-police-fill" style="width: 88%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- GRUP KANAN: JARAK, SPEED, HIGH SCORE, PAUSE -->
+        <div class="ghud-group ghud-right-group">
+          <!-- JARAK -->
+          <div class="ghud-pill ghud-distance" title="Jarak Tempuh Lari">
+            <span class="ghud-icon" aria-hidden="true">
+              <svg class="game-svg-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#FFE066" stroke-width="2">
+                <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/>
+              </svg>
+            </span>
+            <div class="ghud-text">
+              <span class="ghud-label">JARAK</span>
+              <span class="ghud-value" id="game-hud-distance">0 m</span>
+            </div>
+          </div>
+
+          <!-- SPEED -->
+          <div class="ghud-pill ghud-speed" title="Kecepatan Lari Saat Ini">
+            <span class="ghud-icon" aria-hidden="true">
+              <svg class="game-svg-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#FBBF24" stroke-width="2.2">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+              </svg>
+            </span>
+            <div class="ghud-text">
+              <span class="ghud-label">SPEED</span>
+              <span class="ghud-value" id="game-hud-speed">15 km/h</span>
+            </div>
+          </div>
+
+          <!-- SATU-SATUNYA HIGH SCORE DALAM GAMEPLAY -->
+          <div class="ghud-pill ghud-highscore-pill" title="Skor Tertinggi">
+            <span class="ghud-icon" aria-hidden="true">
+              <svg class="game-svg-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#FFB703" stroke-width="2.2">
+                <path d="M6 9H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2"/><path d="M18 9h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2"/><path d="M4 3h16v7a8 8 0 0 1-16 0V3z"/><path d="M12 15v4M8 21h8"/>
+              </svg>
+            </span>
+            <div class="ghud-text">
+              <span class="ghud-label">HIGH SCORE</span>
+              <span class="ghud-value" id="game-hud-highscore">0000</span>
+            </div>
+          </div>
+
+          <!-- TOMBOL PAUSE (II Custom SVG) -->
+          <button id="btn-game-pause" class="btn-hud-pause" type="button" aria-label="Jeda Permainan">
+            <svg class="game-svg-icon pause-bars-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+              <line x1="8" y1="5" x2="8" y2="19" />
+              <line x1="16" y1="5" x2="16" y2="19" />
+            </svg>
+          </button>
+        </div>
+
+      </header>
+
+      <div class="gameplay-powerups" aria-label="Item aktif">
+        <div class="powerup-indicator magnet" id="item-magnet-indicator" aria-live="polite">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4v7a6 6 0 0 0 12 0V4M4 4h4M16 4h4M4 9h4M16 9h4"/></svg>
+          <span>MAGNET <b id="item-magnet-timer">30</b>s</span>
+        </div>
+        <div class="powerup-indicator boots" id="item-boots-indicator" aria-live="polite">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v8l-3 3v5h16v-3l-7-2-2-5V3zM4 16h16"/></svg>
+          <span>HIGH JUMP <b id="item-boots-timer">40</b>s</span>
+        </div>
+      </div>
+
+      <!-- FULLSCREEN COUNTDOWN OVERLAY (3 -> 2 -> 1 -> GO!) -->
+      <div id="game-countdown-overlay" class="game-countdown-overlay" aria-live="assertive" style="display: none;">
+        <div class="countdown-backdrop"></div>
+        <div class="countdown-box">
+          <div class="countdown-number" id="countdown-display-number">3</div>
+          <div class="countdown-label" id="countdown-display-label">BERSIAP!</div>
+        </div>
+      </div>
+
+      <!-- MODAL PAUSE -->
+      <div id="modal-pause" class="game-overlay-modal" role="dialog" aria-modal="true" aria-label="Permainan Dijeda">
+        <div class="overlay-card pause-card">
+          <div class="card-icon-badge">
+            <svg class="game-svg-icon" viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="#FFB703" stroke-width="2.5">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="10" y1="15" x2="10" y2="9"/>
+              <line x1="14" y1="15" x2="14" y2="9"/>
+            </svg>
+          </div>
+          <h2 class="overlay-title">PAUSED</h2>
+          <p class="overlay-subtitle">Tarik napas sejenak, pelari Cirebon!</p>
+          
+          <div class="overlay-btn-group">
+            <button id="btn-pause-resume" class="btn btn-overlay-primary" type="button">LANJUTKAN</button>
+            <button id="btn-pause-restart" class="btn btn-overlay-secondary" type="button">ULANGI</button>
+            <button id="btn-pause-menu" class="btn btn-overlay-tertiary" type="button">MAIN MENU</button>
+          </div>
+
+          <!-- AUDIO SETTINGS IN PAUSE MENU -->
+          <div class="pause-audio-section">
+            <div class="pause-audio-title">PENGATURAN SUARA</div>
+            <div class="pause-audio-row">
+              <span class="pause-audio-label">
+                <svg class="game-svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                MUSIC
+              </span>
+              <button id="pause-toggle-music" class="toggle-btn active" type="button" role="switch" aria-checked="true">
+                <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                <span class="toggle-text">ON</span>
+              </button>
+            </div>
+            <div class="pause-audio-row">
+              <span class="pause-audio-label">
+                <svg class="game-svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                SFX
+              </span>
+              <button id="pause-toggle-sound" class="toggle-btn active" type="button" role="switch" aria-checked="true">
+                <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                <span class="toggle-text">ON</span>
+              </button>
+            </div>
+            <div class="pause-audio-row volume-row">
+              <span class="pause-audio-label">VOLUME</span>
+              <input type="range" id="pause-volume-slider" min="0" max="100" value="80" class="game-range-slider" aria-label="Volume Musik">
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- MODAL GAME OVER -->
+      <div id="modal-game-over" class="game-overlay-modal" role="dialog" aria-modal="true" aria-label="Permainan Berakhir">
+        <div class="overlay-card gameover-card">
+          <div class="card-icon-badge">
+            <svg class="game-svg-icon" viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="#EF4444" stroke-width="2.2">
+              <polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/>
+              <line x1="12" y1="8" x2="12" y2="12"/>
+              <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </div>
+          <h2 class="overlay-title gameover-title">GAME OVER!</h2>
+          <p class="overlay-subtitle" id="gameover-reason-text">Terlibat kekacauan kecil di jalanan Cirebon!</p>
+          <span id="gameover-new-record-badge" class="new-record-badge" style="display: none;">REKOR BARU!</span>
+          
+          <div class="gameover-stats-grid">
+            <div class="gov-stat-item highlight">
+              <span class="gov-label">TOTAL SKOR</span>
+              <span class="gov-val" id="gameover-score-value">0</span>
+            </div>
+            <div class="gov-stat-item">
+              <span class="gov-label">JARAK TEMPUH</span>
+              <span class="gov-val" id="gameover-distance-value">0 m</span>
+            </div>
+            <div class="gov-stat-item">
+              <span class="gov-label">KOIN TERKUMPUL</span>
+              <span class="gov-val" id="gameover-coins-value">0</span>
+            </div>
+            <div class="gov-stat-item">
+              <span class="gov-label">SKOR TERBAIK</span>
+              <span class="gov-val" id="gameover-best-value">0</span>
+            </div>
+          </div>
+
+          <div class="overlay-btn-group">
+            <button id="btn-gameover-replay" class="btn btn-overlay-primary" type="button">MAIN LAGI</button>
+            <button id="btn-gameover-menu" class="btn btn-overlay-secondary" type="button">MENU UTAMA</button>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SCREEN 3: CHARACTER SELECTION & SHOP                     -->
+    <!-- ======================================================== -->
+    <section id="screen-character" class="game-screen" aria-label="Layar Pemilihan Karakter">
+      <div class="screen-card modal-character">
+        
+        <!-- HEADER MODAL (PINNED TOP) -->
+        <div class="card-header">
+          <div class="card-icon-badge">
+            <svg class="game-svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#FFB703" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <h2 class="card-title">CHOOSE YOUR RUNNER</h2>
+          <p class="card-subtitle">Pilih Karakter Pelari Kota Cirebon</p>
+        </div>
+
+        <!-- SCROLLABLE BODY CONTENT ONLY -->
+        <div class="card-body character-selection-body">
+          
+          <!-- SHOWCASE PANEL: Detail Karakter Terpilih -->
+          <div class="character-detail-spotlight" id="character-detail-spotlight">
+            <div class="spotlight-avatar-wrap" id="spotlight-avatar-container">
+              <div class="spotlight-model-box" id="spotlight-model-box">
+                <!-- SVG Avatar Inject Here -->
+              </div>
+            </div>
+            <div class="spotlight-info">
+              <div class="spotlight-header-row">
+                <h3 class="spotlight-name" id="spotlight-name">ARDA</h3>
+                <span class="spotlight-status-badge unlocked" id="spotlight-status-badge">UNLOCKED / DEFAULT</span>
+              </div>
+              <div class="spotlight-skill-tag" id="spotlight-skill-tag">
+                <span class="skill-icon-mini" id="spotlight-skill-icon">
+                  <!-- SVG Skill Icon Inject Here -->
+                </span>
+                <span class="skill-name-bold" id="spotlight-skill-name">MAGNET</span>
+              </div>
+              <p class="spotlight-desc" id="spotlight-desc">"Pelari utama dengan kemampuan Magnet bawaan yang menarik koin di sekitar secara otomatis."</p>
+              
+              <!-- Action Button di Spotlight (PILIH / BELI) -->
+              <div class="spotlight-action-wrap">
+                <button id="btn-spotlight-action" class="btn btn-spotlight-action select" type="button">
+                  <span>PILIH KARAKTER</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- DAFTAR 4 KARTU ROSTER LENGKAP -->
+          <div class="character-roster-section-heading">
+            <span>OTHER CHARACTERS</span>
+          </div>
+
+          <div class="character-roster-grid">
+            
+            <!-- Karakter 1: ARDA (Male, UNLOCKED / FREE) -->
+            <article class="roster-card active" data-character="arda" id="card-char-arda">
+              <div class="roster-status-chip unlocked">TERPILIH</div>
+              <div class="roster-visual-frame frame-arda">
+                <svg class="roster-svg-avatar" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="50" cy="35" r="20" fill="#F2BA95"/>
+                  <path d="M30,30 Q50,10 70,30 Q65,15 50,15 Q35,18 30,30 Z" fill="#181512"/>
+                  <path d="M30,28 Q50,22 70,28 L68,34 Q50,30 32,34 Z" fill="#8B2616"/>
+                  <polygon points="62,26 72,16 66,28" fill="#FFB703"/>
+                  <path d="M41,29 L47,28 M53,28 L59,29" stroke="#181512" stroke-width="2" stroke-linecap="round"/>
+                  <circle cx="44" cy="34" r="2.5" fill="#152238"/>
+                  <circle cx="56" cy="34" r="2.5" fill="#152238"/>
+                  <path d="M46,42 Q50,45 54,42" fill="none" stroke="#8B2616" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M32,55 L68,55 L64,95 L36,95 Z" fill="#FF6B00"/>
+                  <path d="M35,70 Q50,65 65,75" stroke="#FFB703" stroke-width="3" fill="none"/>
+                  <polygon points="44,55 56,55 50,65" fill="#FFF8E7"/>
+                  <path d="M28,58 L18,75 L26,80 L34,65 Z" fill="#D94E00"/>
+                  <path d="M72,58 L82,75 L74,80 L66,65 Z" fill="#D94E00"/>
+                  <circle cx="16" cy="78" r="5" fill="#F2BA95"/>
+                  <circle cx="84" cy="78" r="5" fill="#F2BA95"/>
+                  <rect x="36" y="95" width="12" height="20" fill="#152238"/>
+                  <rect x="52" y="95" width="12" height="20" fill="#152238"/>
+                </svg>
+              </div>
+              <h4 class="roster-name">ARDA</h4>
+              <div class="roster-price-tag free">FREE</div>
+              <div class="roster-skill-badge skill-magnet">
+                <svg class="game-svg-icon icon-magnet" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v6a6 6 0 0 0 12 0V3"/><line x1="4" y1="3" x2="8" y2="3"/><line x1="16" y1="3" x2="20" y2="3"/></svg>
+                <span>MAGNET</span>
+              </div>
+            </article>
+
+            <!-- Karakter 2: AKBAR (Male, LOCKED / 500 COINS) -->
+            <article class="roster-card locked" data-character="akbar" id="card-char-akbar">
+              <div class="roster-status-chip locked">500 KOIN 🔒</div>
+              <div class="roster-visual-frame frame-akbar">
+                <svg class="roster-svg-avatar" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="50" cy="35" r="20" fill="#F2BA95"/>
+                  <path d="M29,31 Q34,12 44,18 L49,7 L53,19 L62,9 L64,23 Q72,24 73,31 Z" fill="#202632"/>
+                  <path d="M30,28 Q50,23 70,28 L68,32 Q50,29 32,32 Z" fill="#C0392B"/>
+                  <path d="M39,27 L47,27 L50,30 L53,27 L61,27" fill="none" stroke="#FFF8E7" stroke-width="2"/>
+                  <path d="M41,29 L47,28 M53,28 L59,29" stroke="#181512" stroke-width="2" stroke-linecap="round"/>
+                  <circle cx="44" cy="34" r="2.5" fill="#152238"/>
+                  <circle cx="56" cy="34" r="2.5" fill="#152238"/>
+                  <path d="M46,42 Q50,45 54,42" fill="none" stroke="#8B2616" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M40,55 L45,55 L48,62 L52,62 L55,55 L60,55 L68,91 L32,91 Z" fill="#E74C3C"/>
+                  <path d="M39,72 L59,64 L55,74 L62,71 L58,82 L40,88 Z" fill="#F1C40F"/>
+                  <text x="50" y="61" fill="#FFF8E7" font-size="6" font-weight="bold" text-anchor="middle">07</text>
+                  <path d="M31,57 L22,76 L28,81 L37,64 Z" fill="#152238"/>
+                  <path d="M69,57 L78,76 L72,81 L63,64 Z" fill="#152238"/>
+                  <circle cx="16" cy="78" r="5" fill="#F2BA95"/>
+                  <circle cx="84" cy="78" r="5" fill="#F2BA95"/>
+                  <path d="M38,88 L49,88 L47,104 L38,104 Z M52,88 L63,88 L62,104 L53,104 Z" fill="#152238"/>
+                  <path d="M36,103 L48,103 L47,110 L34,110 Z M52,103 L64,103 L66,110 L53,110 Z" fill="#FFF8E7"/>
+                  <path d="M34,110 L47,110 L46,114 L33,114 Z M53,110 L66,110 L67,114 L54,114 Z" fill="#E74C3C"/>
+                </svg>
+                <div class="lock-watermark">
+                  <svg class="game-svg-icon" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#FFB703" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                </div>
+              </div>
+              <h4 class="roster-name">AKBAR</h4>
+              <div class="roster-price-tag">500 KOIN</div>
+              <div class="roster-skill-badge skill-dash">
+                <svg class="game-svg-icon icon-dash" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                <span>POWER DASH</span>
+              </div>
+            </article>
+
+            <!-- Karakter 3: APIZ (Male, LOCKED / 750 COINS) -->
+            <article class="roster-card locked" data-character="apiz" id="card-char-apiz">
+              <div class="roster-status-chip locked">750 KOIN 🔒</div>
+              <div class="roster-visual-frame frame-apiz">
+                <svg class="roster-svg-avatar" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="50" cy="35" r="20" fill="#F2BA95"/>
+                  <path d="M26,30 Q50,12 74,30 L78,34 Q50,22 24,34 Z" fill="#1E8449"/>
+                  <polygon points="56,22 78,28 66,34" fill="#27AE60"/>
+                  <circle cx="48" cy="24" r="5" fill="#F1C40F"/>
+                  <circle cx="44" cy="36" r="2.5" fill="#152238"/>
+                  <circle cx="56" cy="36" r="2.5" fill="#152238"/>
+                  <path d="M46,44 Q50,47 54,44" stroke="#8B2616" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                  <path d="M32,55 L68,55 L64,95 L36,95 Z" fill="#27AE60"/>
+                  <polygon points="42,55 58,55 50,70" fill="#2ECC71"/>
+                  <circle cx="50" cy="80" r="5" fill="#F1C40F"/>
+                  <path d="M28,58 L18,75 L26,80 L34,65 Z" fill="#196F3D"/>
+                  <path d="M72,58 L82,75 L74,80 L66,65 Z" fill="#196F3D"/>
+                  <circle cx="16" cy="78" r="5" fill="#F2BA95"/>
+                  <circle cx="84" cy="78" r="5" fill="#F2BA95"/>
+                  <rect x="36" y="95" width="12" height="20" fill="#5D4037"/>
+                  <rect x="52" y="95" width="12" height="20" fill="#5D4037"/>
+                </svg>
+                <div class="lock-watermark">
+                  <svg class="game-svg-icon" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#FFB703" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                </div>
+              </div>
+              <h4 class="roster-name">APIZ</h4>
+              <div class="roster-price-tag">750 KOIN</div>
+              <div class="roster-skill-badge skill-coin">
+                <svg class="game-svg-icon icon-coin" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5" stroke-dasharray="2 2"/><path d="M12 7v10M9 9.5h6M9 14.5h6"/></svg>
+                <span>COIN BOOST</span>
+              </div>
+            </article>
+
+            <!-- Karakter 4: ANANDA (Female, LOCKED / 1000 COINS) -->
+            <article class="roster-card locked" data-character="ananda" id="card-char-ananda">
+              <div class="roster-status-chip locked">1000 KOIN 🔒</div>
+              <div class="roster-visual-frame frame-ananda">
+                <svg class="roster-svg-avatar" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M62 26 Q73 22 76 34 L74 44 Q71 49 66 45 L63 37Z" fill="#241A2B"/>
+                  <path d="M39 55 L61 55 L64 95 L36 95Z" fill="#7753C9"/>
+                  <path d="M42 58 L47 58 L44 91 L39 91Z M58 58 L53 58 L56 91 L61 91Z" fill="#5638A3"/>
+                  <path d="M49 57 L51 57 L51 91 L49 91Z" fill="#D8C5FF"/>
+                  <path d="M55 62 L60 64 L59 70 L55 72 L51 69 L52 64Z" fill="#F7D97A"/>
+                  <path d="M28 58 L18 75 L26 80 L34 65Z M72 58 L82 75 L74 80 L66 65Z" fill="#5638A3"/>
+                  <circle cx="16" cy="78" r="5" fill="#F5C6A5"/>
+                  <circle cx="84" cy="78" r="5" fill="#F5C6A5"/>
+                  <rect x="36" y="95" width="12" height="17" fill="#28233A"/>
+                  <rect x="52" y="95" width="12" height="17" fill="#28233A"/>
+                  <path d="M34 109 L48 109 L47 114 L33 114Z M52 109 L66 109 L67 114 L53 114Z" fill="#F8F4FF"/>
+                  <path d="M33 113 L47 113 L47 116 L33 116Z M53 113 L67 113 L67 116 L53 116Z" fill="#B69BEF"/>
+                  <ellipse cx="50" cy="34" rx="18" ry="19" fill="#F5C6A5"/>
+                  <path d="M32 34 Q32 14 50 14 Q68 14 68 34 L63 29 L57 31 L51 27 L45 31 L38 29Z" fill="#241A2B"/>
+                  <path d="M33 24 Q50 19 67 24 L65 29 Q50 25 35 29Z" fill="#B69BEF"/>
+                  <path d="M41 32 Q45 30 48 32 M53 32 Q57 30 60 32" fill="none" stroke="#2B203B" stroke-width="1.5" stroke-linecap="round"/>
+                  <ellipse cx="45" cy="35" rx="1.5" ry="2" fill="#2B203B"/>
+                  <ellipse cx="57" cy="35" rx="1.5" ry="2" fill="#2B203B"/>
+                  <path d="M47 41 Q51 44 55 41" fill="none" stroke="#A95C69" stroke-width="1.4" stroke-linecap="round"/>
+                  <circle cx="40" cy="39" r="1.5" fill="#EF91A5" opacity=".55"/>
+                  <circle cx="61" cy="39" r="1.5" fill="#EF91A5" opacity=".55"/>
+                </svg>
+                <div class="lock-watermark">
+                  <svg class="game-svg-icon" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#FFB703" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                </div>
+              </div>
+              <h4 class="roster-name">ANANDA</h4>
+              <div class="roster-price-tag">1000 KOIN</div>
+              <div class="roster-skill-badge skill-shield">
+                <svg class="game-svg-icon icon-shield" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><circle cx="12" cy="11" r="3"/></svg>
+                <span>SHIELD</span>
+              </div>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- PINNED FOOTER (NEVER OVERLAPS CONTENT) -->
+        <div class="card-footer">
+          <button class="btn btn-back btn-back-character" type="button">
+            <span class="btn-back-icon" aria-hidden="true">
+              <svg class="game-svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            </span>
+            <span>KEMBALI KE MENU</span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SCREEN 4: STORY (KEJARAN DI KOTA CIREBON)                -->
+    <!-- ======================================================== -->
+    <section id="screen-story" class="game-screen" aria-label="Layar Cerita Cirebon Dash">
+      <div class="screen-card modal-story">
+        
+        <div class="card-header story-header">
+          <div class="story-header-left">
+            <span class="card-icon-badge">
+              <svg class="game-svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#FFB703" stroke-width="2.2">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+              </svg>
+            </span>
+            <div>
+              <h2 class="card-title">KEJARAN DI KOTA CIREBON</h2>
+              <p class="card-subtitle">Kisah Pelarian Seru ARDA &amp; Sahabat</p>
+            </div>
+          </div>
+          <button id="btn-story-skip-header" class="btn btn-skip-small" type="button">
+            <span>SKIP</span>
+            <svg class="game-svg-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
+          </button>
+        </div>
+
+        <div class="card-body story-body">
+          <div class="story-panels-container">
+            
+            <!-- SCENE 1 -->
+            <article class="story-panel-slide active" data-step="1">
+              <div class="story-panel-art art-cirebon-walk">
+                <div class="comic-badge">SCENE 1</div>
+                <div class="story-art-illustration">
+                  <svg viewBox="0 0 160 100" width="140" height="90" class="story-custom-svg">
+                    <circle cx="80" cy="35" r="22" fill="#FBBF24" opacity="0.85"/>
+                    <path d="M20,90 L20,40 L35,30 L45,90 Z" fill="#8B2616"/>
+                    <path d="M140,90 L140,40 L125,30 L115,90 Z" fill="#8B2616"/>
+                    <circle cx="55" cy="55" r="7" fill="#FF6B00"/>
+                    <rect x="51" y="62" width="8" height="18" fill="#FF6B00" rx="2"/>
+                    <circle cx="72" cy="55" r="7" fill="#E74C3C"/>
+                    <rect x="68" y="62" width="8" height="18" fill="#E74C3C" rx="2"/>
+                    <circle cx="88" cy="55" r="7" fill="#27AE60"/>
+                    <rect x="84" y="62" width="8" height="18" fill="#27AE60" rx="2"/>
+                    <circle cx="104" cy="55" r="7" fill="#8E44AD"/>
+                    <rect x="100" y="62" width="8" height="18" fill="#8E44AD" rx="2"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="story-dialog-box">
+                <div class="dialog-speaker">
+                  <svg class="game-svg-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                  <span>SANTAI SORE DI KOTA WALI</span>
+                </div>
+                <p class="dialog-text">"Sore itu, <strong>ARDA, AKBAR, APIZ, dan ANANDA</strong> hanya ingin menikmati perjalanan santai menyusuri pesona keraton dan jalanan Kota Cirebon."</p>
+              </div>
+            </article>
+
+            <!-- SCENE 2 -->
+            <article class="story-panel-slide" data-step="2">
+              <div class="story-panel-art art-siren">
+                <div class="comic-badge alert">SCENE 2</div>
+                <div class="story-art-illustration">
+                  <svg viewBox="0 0 160 100" width="140" height="90" class="story-custom-svg siren-pulse">
+                    <circle cx="60" cy="50" r="28" fill="#0284C7" opacity="0.35"/>
+                    <circle cx="100" cy="50" r="28" fill="#DC2626" opacity="0.35"/>
+                    <rect x="40" y="42" width="38" height="24" fill="#0284C7" rx="6"/>
+                    <rect x="82" y="42" width="38" height="24" fill="#DC2626" rx="6"/>
+                    <path d="M80,30 L80,78" stroke="#FFF" stroke-width="3"/>
+                    <circle cx="80" cy="24" r="5" fill="#FBBF24"/>
+                    <path d="M22,35 Q10,50 22,65" stroke="#38BDF8" stroke-width="3" fill="none"/>
+                    <path d="M138,35 Q150,50 138,65" stroke="#F87171" stroke-width="3" fill="none"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="story-dialog-box">
+                <div class="dialog-speaker">
+                  <svg class="game-svg-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#EF4444" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                  <span>WEE-OOO! WEE-OOO!</span>
+                </div>
+                <p class="dialog-text">"Tapi tiba-tiba... suara raungan sirene terdengar keras dari belakang! Terjadi sedikit kesalahpahaman dan kekacauan kecil di jalanan!"</p>
+              </div>
+            </article>
+
+            <!-- SCENE 3 -->
+            <article class="story-panel-slide" data-step="3">
+              <div class="story-panel-art art-panic">
+                <div class="comic-badge panic">SCENE 3</div>
+                <div class="story-art-illustration">
+                  <svg viewBox="0 0 160 100" width="140" height="90" class="story-custom-svg">
+                    <circle cx="80" cy="32" r="14" fill="#FFDFC4"/>
+                    <ellipse cx="80" cy="24" rx="18" ry="6" fill="#0F172A"/>
+                    <path d="M72,24 L88,24 L84,18 L76,18 Z" fill="#0F172A"/>
+                    <circle cx="80" cy="21" r="2.5" fill="#F59E0B"/>
+                    <ellipse cx="80" cy="36" rx="8" ry="2.5" fill="#1E293B"/>
+                    <rect x="64" y="46" width="32" height="34" fill="#1E3A8A" rx="4"/>
+                    <path d="M96,48 L122,42 L120,50 L96,56 Z" fill="#1E3A8A"/>
+                    <circle cx="124" cy="45" r="4" fill="#FFDFC4"/>
+                    <rect x="68" y="78" width="10" height="18" fill="#0F172A"/>
+                    <rect x="82" y="78" width="10" height="18" fill="#0F172A"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="story-dialog-box">
+                <div class="dialog-speaker">
+                  <svg class="game-svg-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#F59E0B" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <span>MEREKA DIKEJAR POLISI!</span>
+                </div>
+                <p class="dialog-text">"WADUH... POLISI?! Patroli kepolisian kota kini bersiap mengejar mereka di jalanan!"</p>
+              </div>
+            </article>
+            
+            <!-- SCENE 4 -->
+            <article class="story-panel-slide" data-step="4">
+              <div class="story-panel-art art-sprint">
+                <div class="comic-badge action">SCENE 4</div>
+                <div class="story-art-illustration">
+                  <svg viewBox="0 0 160 100" width="140" height="90" class="story-custom-svg sprint-hero">
+                    <path d="M10,80 L50,80" stroke="#FFB703" stroke-width="3" stroke-dasharray="6 4"/>
+                    <circle cx="95" cy="28" r="13" fill="#F2BA95"/>
+                    <path d="M84,22 L106,22 L104,26 L86,26 Z" fill="#8B2616"/>
+                    <polygon points="102,20 108,14 104,22" fill="#FFB703"/>
+                    <path d="M82,42 L110,42 L104,70 L86,70 Z" fill="#FF6B00"/>
+                    <path d="M86,70 L68,88 L74,90 L92,72 Z" fill="#152238"/>
+                    <path d="M104,70 L120,84 L116,88 L100,72 Z" fill="#152238"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="story-dialog-box">
+                <div class="dialog-speaker">
+                  <svg class="game-svg-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#FF6B00" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                  <span>TIADA WAKTU MENJELASKAN!</span>
+                </div>
+                <p class="dialog-text">"Tidak ada waktu untuk menjelaskan! ARDA langsung mengambil langkah cepat dan memimpin pelarian di jalanan Cirebon!"</p>
+              </div>
+            </article>
+
+            <!-- SCENE 5 -->
+            <article class="story-panel-slide" data-step="5">
+              <div class="story-panel-art art-sprint">
+                <div class="comic-badge action">SCENE 5</div>
+                <div class="story-art-illustration">
+                  <svg viewBox="0 0 160 100" width="140" height="90" class="story-custom-svg">
+                    <polygon points="20,95 140,95 110,45 50,45" fill="#1E293B"/>
+                    <line x1="80" y1="50" x2="80" y2="90" stroke="#FFB703" stroke-width="2" stroke-dasharray="6 4"/>
+                    <circle cx="80" cy="40" r="7" fill="#F2BA95"/>
+                    <rect x="76" y="47" width="8" height="12" fill="#FF6B00" rx="2"/>
+                    <circle cx="80" cy="72" r="10" fill="#FFDFC4"/>
+                    <rect x="74" y="82" width="12" height="14" fill="#1E3A8A" rx="2"/>
+                    <ellipse cx="80" cy="67" rx="12" ry="3.5" fill="#0F172A"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="story-dialog-box">
+                <div class="dialog-speaker">
+                  <svg class="game-svg-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#10B981" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  <span>LARI SEJAUH MUNGKIN!</span>
+                </div>
+                <p class="dialog-text">"Hindari palang, peti pelabuhan, gerobak tahu gejrot, dan kereta Cirebon! Bertahanlah dari kejaran polisi!"</p>
+              </div>
+            </article>
+
+          </div>
+
+          <!-- Stepper Dots -->
+          <div class="story-stepper-dots">
+            <span class="dot active" data-step="1"></span>
+            <span class="dot" data-step="2"></span>
+            <span class="dot" data-step="3"></span>
+            <span class="dot" data-step="4"></span>
+            <span class="dot" data-step="5"></span>
+          </div>
+
+        </div>
+
+        <div class="card-footer story-footer">
+          <button id="btn-story-prev" class="btn btn-story-nav" type="button" disabled>◀ SEBELUMNYA</button>
+          <button id="btn-story-next" class="btn btn-story-nav highlight" type="button">SELANJUTNYA ▶</button>
+          <button id="btn-story-play-direct" class="btn btn-story-play" type="button" style="display: none;">START RUN</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SCREEN 5: HOW TO PLAY (CARA BERMAIN)                     -->
+    <!-- ======================================================== -->
+    <section id="screen-howtoplay" class="game-screen" aria-label="Layar Panduan Cara Bermain">
+      <div class="screen-card modal-howtoplay">
+        
+        <div class="card-header">
+          <div class="card-icon-badge">
+            <svg class="game-svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#FFB703" stroke-width="2.2">
+              <rect x="2" y="6" width="20" height="12" rx="6"/>
+              <line x1="6" y1="12" x2="10" y2="12"/>
+              <line x1="8" y1="10" x2="8" y2="14"/>
+              <circle cx="15" cy="13" r="1" fill="currentColor"/>
+              <circle cx="18" cy="11" r="1" fill="currentColor"/>
+            </svg>
+          </div>
+          <h2 class="card-title">HOW TO PLAY</h2>
+          <p class="card-subtitle">Panduan Kontrol &amp; Bertahan Hidup di Cirebon Dash</p>
+        </div>
+
+        <div class="card-body">
+          <div class="howtoplay-grid">
+            
+            <div class="guide-card">
+              <div class="guide-card-icon">
+                <svg class="game-svg-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#38BDF8" stroke-width="2">
+                  <rect x="5" y="2" width="14" height="20" rx="2"/>
+                  <line x1="12" y1="18" x2="12.01" y2="18"/>
+                  <path d="M9 10l3-3 3 3"/>
+                </svg>
+              </div>
+              <h3 class="guide-card-title">KONTROL SMARTPHONE (SWIPE)</h3>
+              <ul class="guide-list">
+                <li><span class="key-pill">SWIPE KIRI</span> ➔ Pindah ke jalur kiri</li>
+                <li><span class="key-pill">SWIPE KANAN</span> ➔ Pindah ke jalur kanan</li>
+                <li><span class="key-pill">SWIPE ATAS</span> ➔ Lompat melewati gerobak &amp; rintangan</li>
+              </ul>
+            </div>
+
+            <div class="guide-card">
+              <div class="guide-card-icon">
+                <svg class="game-svg-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#FBBF24" stroke-width="2">
+                  <rect x="2" y="4" width="20" height="16" rx="2"/>
+                  <path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M6 12h.01M10 12h.01M14 12h.01M18 12h.01M8 16h8"/>
+                </svg>
+              </div>
+              <h3 class="guide-card-title">KONTROL DESKTOP (KEYBOARD)</h3>
+              <ul class="guide-list">
+                <li><span class="key-pill">A / ◀</span> ➔ Jalur Kiri</li>
+                <li><span class="key-pill">D / ▶</span> ➔ Jalur Kanan</li>
+                <li><span class="key-pill">SPACE / ▲ / W</span> ➔ Lompat</li>
+                <li><span class="key-pill">P / ESC</span> ➔ Jeda (Pause)</li>
+              </ul>
+            </div>
+
+            <div class="guide-card highlight-chase">
+              <div class="guide-card-icon">
+                <svg class="game-svg-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#EF4444" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  <circle cx="12" cy="11" r="2.5" fill="#EF4444"/>
+                </svg>
+              </div>
+              <h3 class="guide-card-title">PENGEJARAN POLISI (POLICE CHASE)</h3>
+              <p class="guide-text">Polisi mengejar di belakangmu! Jika kamu menabrak rintangan, polisi mendekat. Jika kamu berlari mulus, polisi akan kembali menjauh (SAFE).</p>
+            </div>
+
+            <div class="guide-card highlight-train">
+              <div class="guide-card-icon">
+                <svg class="game-svg-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#F59E0B" stroke-width="2">
+                  <rect x="4" y="3" width="16" height="16" rx="2"/>
+                  <path d="M4 11h16M12 3v8"/>
+                  <circle cx="8" cy="15" r="1.5"/><circle cx="16" cy="15" r="1.5"/>
+                </svg>
+              </div>
+              <h3 class="guide-card-title">KERETA CIREBON EXPRESS</h3>
+              <p class="guide-text">Waspada peringatan ⚠️ KERETA MENDEKAT! Kereta adalah rintangan besar berkecepatan tinggi yang tidak bisa dilompati. Segera pindah jalur!</p>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <button class="btn btn-back btn-back-howtoplay" type="button">
+            <span class="btn-back-icon" aria-hidden="true">
+              <svg class="game-svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            </span>
+            <span>KEMBALI KE MENU</span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SCREEN 6: HIGH SCORE                                     -->
+    <!-- ======================================================== -->
+    <section id="screen-highscore" class="game-screen" aria-label="Layar Skor Tertinggi">
+      <div class="screen-card modal-highscore">
+        
+        <div class="card-header">
+          <div class="card-icon-badge">
+            <svg class="game-svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#FFB703" stroke-width="2.2">
+              <path d="M6 9H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2"/>
+              <path d="M18 9h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2"/>
+              <path d="M4 3h16v7a8 8 0 0 1-16 0V3z"/>
+              <path d="M12 15v4M8 21h8"/>
+            </svg>
+          </div>
+          <h2 class="card-title">PAPAN REKOR</h2>
+          <p class="card-subtitle">Catatan Prestasi Pelari Cirebon Dash</p>
+        </div>
+
+        <div class="card-body">
+          <div class="score-showcase">
+            <div class="primary-score-display">
+              <span class="score-caption">SKOR TERTINGGI SAAT INI</span>
+              <div class="score-number-wrapper">
+                <span class="score-number" id="screen-highscore-value">0</span>
+                <span class="score-unit">PTS</span>
+              </div>
+            </div>
+
+            <div class="stats-table">
+              <div class="stat-row">
+                <span class="stat-name">Koin Terkumpul</span>
+                <span class="stat-val" id="screen-coins-collected">0</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-name">Jarak Terjauh</span>
+                <span class="stat-val" id="screen-furthest-distance">0 m</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-name">Total Lari (Runs)</span>
+                <span class="stat-val" id="screen-total-runs">0 Kali</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-name">Pangkat Pelari</span>
+                <span class="stat-val highlight">Pelari Handal Cirebon</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <button class="btn btn-back btn-back-highscore" type="button">
+            <span class="btn-back-icon" aria-hidden="true">
+              <svg class="game-svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            </span>
+            <span>KEMBALI KE MENU</span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SCREEN 7: SETTINGS                                       -->
+    <!-- ======================================================== -->
+    <section id="screen-settings" class="game-screen" aria-label="Layar Pengaturan Game">
+      <div class="screen-card modal-settings">
+        
+        <div class="card-header">
+          <div class="card-icon-badge">
+            <svg class="game-svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#FFB703" stroke-width="2.2">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+            </svg>
+          </div>
+          <h2 class="card-title">PENGATURAN</h2>
+          <p class="card-subtitle">Sesuaikan Audio &amp; Kenyamanan Bermain</p>
+        </div>
+
+        <div class="card-body">
+          <div class="settings-list">
+            
+            <!-- Toggle Suara Efek (SFX) -->
+            <div class="setting-item">
+              <div class="setting-info">
+                <span class="setting-title">Efek Suara (Sound)</span>
+                <span class="setting-desc">Suara lompatan, koin, tabrakan, dan tombol UI</span>
+              </div>
+              <button id="toggle-sound" class="btn-toggle active" type="button" role="switch" aria-checked="true" aria-label="Aktifkan atau Matikan Efek Suara">
+                <span class="toggle-track">
+                  <span class="toggle-thumb"></span>
+                </span>
+                <span class="toggle-text">ON</span>
+              </button>
+            </div>
+
+            <!-- Toggle Musik Latar (BGM) -->
+            <div class="setting-item">
+              <div class="setting-info">
+                <span class="setting-title">Musik Latar (Music)</span>
+                <span class="setting-desc">Musik tema tradisional Cirebon yang bersemangat</span>
+              </div>
+              <button id="toggle-music" class="btn-toggle active" type="button" role="switch" aria-checked="true" aria-label="Aktifkan atau Matikan Musik Latar">
+                <span class="toggle-track">
+                  <span class="toggle-thumb"></span>
+                </span>
+                <span class="toggle-text">ON</span>
+              </button>
+            </div>
+
+            <!-- Volume Musik -->
+            <div class="setting-item">
+              <div class="setting-info">
+                <span class="setting-title">Volume Musik</span>
+                <span class="setting-desc">Tingkat kekerasan musik latar</span>
+              </div>
+              <div class="setting-slider-wrap">
+                <input type="range" id="settings-volume-slider" min="0" max="100" value="80" class="game-range-slider" aria-label="Volume Musik">
+              </div>
+            </div>
+
+            <div class="setting-footer-info">
+              <div class="game-meta">
+                <p><strong>Cirebon Dash</strong> — Versi 3.0 (Major Revision)</p>
+                <p>Projek Desain Web — Semester 5</p>
+                <p class="meta-tag">4 Karakter Runner • Kereta Cirebon • Police Chase System • Pure Vanilla JS/CSS</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <button class="btn btn-back btn-back-settings" type="button">
+            <span class="btn-back-icon" aria-hidden="true">
+              <svg class="game-svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            </span>
+            <span>KEMBALI KE MENU</span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================== -->
+  <!-- SCRIPT MODULAR GAMEPLAY & UI                               -->
+  <!-- ========================================================== -->
+  <script src="js/audio.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/obstacle.js"></script>
+  <script src="js/coin.js"></script>
+  <script src="js/input.js"></script>
+  <script src="js/environment.js"></script>
+  <script src="js/item.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

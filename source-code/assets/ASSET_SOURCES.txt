@@ -1,0 +1,31 @@
+# ==============================================================================
+# ASSET LICENSING & SOURCES — CIREBON DASH
+# Mata Kuliah: Desain Web (Semester 5)
+# ==============================================================================
+
+Asset: Vector Graphics, 2.5D Canvas Environments, Characters & Motifs
+Source: Original Custom Procedural Vector Artwork & Canvas Rendering
+Author: Tim Pengembang Cirebon Dash (Projek Desain Web Semester 5)
+License: Creative Commons Zero (CC0) / Public Domain Dedication
+URL: Local Repository (assets/ & js/)
+Notes: Seluruh ilustrasi (Awan Mega Mendung, Arsitektur Keraton Candi Bentar,
+       Ruko Kota Cirebon, Kios Kuliner Tahu Gejrot & Empal Gentong, Kendaraan
+       Angkot & Becak Tradisional, Pelari RIDD, dan Koin Emas) dibuat secara
+       orisinil dan mandiri menggunakan kode vektor HTML5 Canvas, SVG, dan CSS
+       tanpa menyalin aset Subway Surfers, Temple Run, atau hak cipta pihak ketiga.
+
+Asset: Google Web Fonts (Lilita One & Poppins)
+Source: Google Fonts
+Author: Juan Montoreano (Lilita One), Indian Type Foundry & Jonny Pinhorn (Poppins)
+License: SIL Open Font License, 1.1 (OFL)
+URL: https://fonts.google.com/specimen/Lilita+One
+     https://fonts.google.com/specimen/Poppins
+
+Asset: Game Sound Effects & Web Audio Synthesizer
+Source: Custom Real-time Synthesizer via Web Audio API (Sine/Triangle/Sawtooth Nodes)
+Author: Tim Pengembang Cirebon Dash
+License: MIT License / CC0
+URL: js/game.js (SoundManager)
+Notes: Efek suara lompat, koin emas, tabrakan, swoosh perpindahan jalur, dan
+       denting musik game over disintesis secara real-time langsung melalui
+       Web Audio API browser tanpa menggunakan file audio komersial berhak cipta.
